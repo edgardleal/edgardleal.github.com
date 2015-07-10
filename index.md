@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Edgard Leal
-tagline: Java(Script)? developer
+tagline: /Java(Script)?/ developer
 ---
 {% include JB/setup %}
 
