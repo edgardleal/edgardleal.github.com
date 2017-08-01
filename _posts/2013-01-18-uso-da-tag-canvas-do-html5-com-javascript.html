@@ -1,0 +1,38 @@
+---
+layout: post
+title: Uso da tag canvas do HTML5 com JavaScript
+date: 2013-01-18 13:51:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Código
+- Dicas
+- JavaScript
+tags: []
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/01/uso-da-tag-canvas-do-html5-com.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/7556333324450975665"
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left">
+<div style="clear: both;text-align: center"><a href="http://3.bp.blogspot.com/-Zcu2UZ4GGcc/UPlbM9MHwZI/AAAAAAAACBg/h-0sEXhKXfQ/s1600/HTML-5.png" style="margin-left: 1em;margin-right: 1em"><img border="0" height="200" src="{{ site.baseurl }}/assets/HTML-5.png" width="200" /></a></div>
+<p>A tag CANVAS é basicamente uma tela para desenho.</p>
+<pre>  <br />  <br />     Menasgem para quando o navegador não suportar HTML5<br />   <br /></pre>
+<p>&nbsp; </p>
+<p>Com o JavaScript pode-se obter a tela, dai será nescessário um objeto Context para desenhar nesta tela:
+<pre>  var canvas = document.getElementById('canvas1');<br />  var context = canvas.getContext('2d');<br />  context.moveTo(0,0);<br />  context.lineTo(50,50);<br />  context.stroke();<br /></pre>
+<p>Resultado:</p>
+<p><span><b><span style="font-family: Verdana,sans-serif">Principais funções:</span></b></span><br /><span><b><span style="font-family: Verdana,sans-serif">&nbsp;</span></b> </span><br /><b><span>moveTo(int x, int y);</span></b>&nbsp;&nbsp; <span style="color: #6aa84f">//Move para as cordenadas indicadas</span></p>
+<p><span><b>lineTo(int x, int y);</b>&nbsp;</span><span style="color: #6aa84f">//Desenha uma linhas do ponto inicial definido por "moveTo" ate o pondo indicado nos valores de X e Y</span></p>
+<p><span><b>stroke();</b> </span><span style="color: #6aa84f">//<span>Imprime o senho na tela</span></span><br /><span style="color: #6aa84f"><span>&nbsp;</span></span><br /><b><span>fillRect(int x, int y, int width, int height);</span></b> <span style="color: #6aa84f">//Desenha um retângulo, onde X e Y indica o posicionamento e Width e Height indicam o tamanho do retângulo</span><br /><span style="color: #6aa84f">&nbsp;</span><br /><b><span>arc(int x, int y, int radius,double start, double end);</span></b> <span style="color: #6aa84f">//Desenha um arco onde X e Y indica o posicionamento do centro do arco, Radius é o raio , Start indica onde o arco deve iniciar, o valor 0(zero) é a posiçao de 3(três) horas no relógio e vai ate Math.PI (3.14), End é o fim do arco, desta forma para desenhar um círculo, usa-se 0 para Start e 3.14 (Math.PI) para End</span></p>
+<p>Abaixo você pode ver um exemplo de uma animação que renderiza um relogio em uma tag &lt;CANVAS&gt;</p>
+<p>Seu navegador não suporta HTML5</p>
+<p>Fonte:&nbsp;<a href="https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Basic_animations?redirectlocale=en-US&amp;redirectslug=Canvas_tutorial%2FBasic_animations" target="_blank">developer.mozilla.org</a> </div>

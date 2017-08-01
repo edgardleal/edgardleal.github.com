@@ -1,0 +1,172 @@
+---
+layout: post
+title: ShellScript para implementação de "lixeira"
+date: 2013-12-23 13:20:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Código
+- Dicas
+- linux
+- Shell Script
+- Utilidades
+tags:
+- Dicas
+- Linux
+- Segurança
+- Shell
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/12/script-para-implementacao-de-lixeira-no.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/7894476305508799860"
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: ShellScript
+  _yoast_wpseo_metadesc: Implementação de um recurso de lixeira temporárias em ShellScrip
+    para evitar perdas de arquivos no linux
+  _yoast_wpseo_linkdex: '80'
+  _wp_old_slug: script-para-implementacao-de-lixeira-no-linux-terminal
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<p>[caption id="attachment_80" align="aligncenter" width="232"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2013/05/linux.jpg"><img class="wp-image-80 size-medium" src="{{ site.baseurl }}/assets/linux-232x300.jpg" alt="Utilizando ShellScript para não perder mais arquivos no Linux" width="232" height="300" /></a> Linu[/caption]</p>
+<h2>Introdução</h2>
+<p>Neste post iremos utilizar o ShellScript para implementar um recurso muito importante que possibilita a recuperação simples e rápida de uma lixeira para o linux quando utilizado sem os gerenciadores de janelas como <a href="https://pt.wikipedia.org/wiki/KDE" target="_blank">KDE</a>, <a href="https://pt.wikipedia.org/wiki/GNOME" target="_blank">Gnome</a> e outros que ja possuem um recurso parecido.</p>
+<h2>O Problema</h2>
+<p>Quando se utiliza o terminal o linux, pode acontecer alguns desastres, como por exemplo o uso do comando <span style="color: red; font-weight: bold;">rm</span> que remove o arquivo informado permanentemente. Por isso criei o script abaixo que move o arquivo ou pasta informado para uma pasta temporária, e só remove permanentemente após 30 dias.</p>
+<h2><span style="color: red; font-weight: bold;"><span style="color: #000000;">A Solução</span></span></h2>
+<p><span style="font-weight: bold;"> </span>Para disponibilizar o comando em qualquer local do terminal, crie o arquivo com o nome <b>"del.sh"</b>, dê permissão de execução com o comando <b>"chmod +x del.sh"</b> e crie um link dentro da pasta <b>"/usr/local/bin"</b> com o seguinte comando: <b>"ln -s /home/pasta/onde/esta/o/arquivo/del.sh del"</b><br />
+Apos seguir todos estes passos, você ja poderá utilizar o comando:<br />
+del arquivo.txt</p>
+<h2>O ShellScript del.sh</h2>
+<pre class="lang:sh decode:true " title="del.sh"> declare -r trash="$HOME/.trash"
+ declare -r -i maxsize=500
+ 
+ 
+ if [ ! -d "$HOME/.trash" ]; then 
+   mkdir "$HOME/.trash"
+ fi
+ 
+ clear(){
+   files="`find -mtime +30`"
+   for f in files
+   do  
+     echo "$f"
+   done
+ }
+ 
+ function newname
+ {
+   local sequencename="$trash/.sequence"
+   if [ ! -f $sequencename ]; then 
+     echo "0" &gt; $sequencename
+   fi  
+   local value=$(cat "${sequencename}")
+   ((value++))
+   
+   echo "$value" &gt; $sequencename
+   echo $value
+ }
+ 
+ function movedir
+ {
+   if [ ! -d $2 ]; then 
+     mkdir $2
+   fi
+ 
+   for var in "$1/*"
+   do
+     if [ -f "$var" ]; then
+       mv "$1/$var" $2
+     else
+       movedir $1 $var
+     fi
+   done
+ }
+
+ function deletedir
+ {
+   local sequence="`newname`"
+   local newlocalname="$trash/${sequence}"
+   echo "${sequence}|$1"i &gt;&gt; "$trash/.catalog"
+   mkdir $newlocalname
+ 
+ 
+   rm "$1"
+ }
+ 
+ 
+ function deletefile
+ {
+   local filename="$1"
+   local sequence="`newname`"
+   local newlocalname="$trash/${sequence}"
+   echo "${sequence}|$1" &gt;&gt; "$trash/.catalog"
+   mv "$1" "${newlocalname}"
+   log "O usuario [$USER] removeu o arquivo [$1]"
+ }
+ 
+ 
+ function delete
+ {
+   if [ -d "$1" ]; then
+     mv "$1" $trash
+   else
+     if [ -f "$1" ]; then
+       deletefile "$1"
+         else
+       echo "File or directory not exists: [$1]"
+       exit 1
+     fi
+   fi
+ }
+ 
+ if [ "$1" == "-ls" ]; then
+   ls -ag $trash
+   exit 0
+ else
+     if [ "$1" ==  "-c" ]; then
+             clear
+         exit 0
+     else
+         if [ "$1" == "-s" ]; then
+             echo -e "Current size of trash folder: `du -m $trash | tail -1`"
+             exit 0
+         else
+             if [ "$1" == "-h" ]; then
+                 echo -e "Usage [del [files] or [options]]"
+                 echo -e "-ls -&gt; List files in trash folder \n-c -&gt; Remove files deletes after 30 days\n-s -&gt; Show current size of trash folder"
+                 exit 0
+             fi
+         fi
+     fi
+ fi
+ 
+ (
+ for item in $@
+ do
+   filename="$item"
+   isabsolute=$(echo "$filename" | sed "s/\/.*/1/g")
+   if [ "$isabsolute" != "1" ]; then
+     filename="`pwd`/$filename"
+   fi
+   delete "$filename"
+ done
+ )
+ size="`du -m $trash | tail -1`"
+ size="`echo $size | sed 's/\([0-9]\).*//g'`"
+ echo "Current size of Trash folder: $size Mb"
+ exit 1
+</pre>
+<p>Exemplo de uso:</p>
+<pre class="lang:sh decode:true ">&gt;del arquivo.txt
+&gt;del *.txt
+&gt;del a.csv b.csv d.jpg</pre>
+</div>

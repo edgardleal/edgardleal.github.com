@@ -1,0 +1,97 @@
+---
+layout: post
+title: Analisando o log do fail2ban
+date: 2015-05-06 13:41:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- awk
+- Dicas
+- Firewall
+- linux
+- Shell Script
+- Tutorial
+- Utilidades
+- wc
+tags:
+- Dicas
+- Firewall
+- Linux
+- Segurança
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2015/05/analisando-o-log-do-fail2ban.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/7904529045958514400"
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: fail2ban
+  _yoast_wpseo_metadesc: Verifique o que acontece com seu servidor analisando os arquivos
+    de log do fail2ban com ferramentas nativas do Linux
+  _yoast_wpseo_linkdex: '70'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: fail2ban
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+  _wpcom_is_markdown: '1'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ47iWdawcGNBNdTt40jqNLY0J7uf3USgwGJXTkDz-oPcmSucRh"><img class="alignnone" title="Firewall configuração com o fail2ban" src="{{ site.baseurl }}/assets/images?q=tbn:ANd9GcQ47iWdawcGNBNdTt40jqNLY0J7uf3USgwGJXTkDz-oPcmSucRh" alt="Firewall configuração com o fail2ban" width="251" height="201" border="0" /></a></div>
+<h2 style="clear: both;">Introdução</h2>
+<p>O fail2ban é uma ferramenta escrita em python que analisa os arquivos de log dos seu sistema e automaticamente cria regras de bloqueio no iptables para ips que estejam realizando alguma atividade suspeita. Por exemplo, em casos de muitas tentativas de acesso pelo ssh inválidas, o fail2ban identifica estas tentativas com erro no log do sistema ( /var/log/syslog ) e cria uma regra no iptables bloqueando este ip por alguns minutos.</p>
+</div>
+<p><!--more--></p>
+<div dir="ltr" style="text-align: left;">
+<p>Estes bloqueios são registrados em seu arquivo de log /var/log/fail2ban.log , e tem um conteúdo no padrão abaixo:</p>
+<pre class="lang:sh decode:true">2015-05-06 09:58:46,692 fail2ban.actions: WARNING [ssh] Unban 115.239.248.69
+2015-05-06 10:07:00,233 fail2ban.actions: WARNING [ssh] Unban 58.218.204.241
+2015-05-06 10:12:42,600 fail2ban.actions: WARNING [ssh] Ban 222.186.21.236
+2015-05-06 10:16:29,843 fail2ban.actions: WARNING [ssh] Ban 115.239.248.69
+2015-05-06 10:21:09,140 fail2ban.actions: WARNING [ssh] Unban 222.89.166.12</pre>
+<p>Analisando por colunas:</p>
+<ol style="text-align: left;">
+<li>Data do evento</li>
+<li>Hora do evento</li>
+<li>Origem</li>
+<li>Nível de alerta</li>
+<li>Tipo do serviço</li>
+<li>Ação ( Banido ou liberado )</li>
+<li>IP de origem</li>
+</ol>
+<div>Análises:</div>
+<div></div>
+<div>1 - Quantidades de bloqueios por dia:</div>
+<div></div>
+<div>
+<pre class="lang:sh decode:true ">awk '/2015-05-05.*Ban.*/{print $7}' /var/log/fail2ban.log | wc -l</pre>
+</div>
+<div>     Neste comando filtramos apenas as linhas com a data que desejamos e imprimimos a coluna 7 que contem os ips ( neste comando poderia ser qualquer uma ) e passamos o resultado para o comando wc que irá contar as linhas resultantes.</div>
+<div></div>
+<div>2 -  Quantidade de tentativas por cada ip:</div>
+<div>
+<pre class="lang:sh decode:true ">awk '/2015-05-05.*Ban.*/{print $7}' /var/log/fail2ban.log | sort | uniq -c | sort</pre>
+</div>
+<div> Neste caso utilizamos o inicio do comando anterior removendo o filtro por data ( cada arquivos de log contem informações de aproximadamente 3 dias ) em seguida passamos o resultado para o comando sort que ira ordenar o resultado que é passado para o comando uniq com o parâmetro -c que diz que ele deve remover as linhas repetidas e informa a quantidade de cada registro único encontrado, por fim passamos o resultado novamente para o comando sort para facilitar a leitura e identificar rapidamente os ips "insistentes".</div>
+<div></div>
+<div>Caso deseje ler mas sobre o fail2ban ou ate mesmo sobre o iptables, deixe um comentário com seu email que eu irei criar um post sobre o assunto solicitado e te aviso por email quando estiver pronto.</div>
+<div></div>
+<div>Obrigado por visitar o blog. :D</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</div>
+<p><!--more--></p>
+<p><!--more--></p>
+<p><!--more--></p>

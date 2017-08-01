@@ -1,0 +1,185 @@
+---
+layout: post
+title: "{:br}Executando scripts Groovy no java{:}{:en}Running a Groovy script inside
+  your Java Application{:}"
+date: 2013-04-22 17:23:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Código
+- Dicas
+- Groovy
+- Java
+- Tutorial
+tags:
+- Código
+- Dicas
+- Java
+- Script
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/04/executando-scripts-groovy-no-java.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/241019497405612475"
+  _thumbnail_id: '90'
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: "{:br}Groovy{:}{:en}Groovy{:}"
+  _yoast_wpseo_metadesc: "{:br}Veja como executar scripts dinâmicos escritos em Groovy
+    dentro de sua aplicação Java em poucas linhas de código{:}{:en}Create a Java application
+    able to run Groovy scripts dynamically{:}"
+  _yoast_wpseo_linkdex: '86'
+  cta_content_placement: below
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+  _wpcom_is_markdown: '1'
+  _yoast_wpseo_title: "{:en}Running a Groovy script inside your Java Application{:}"
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<p>{:br}</p>
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://edgardleal.com/wp-content/uploads/sites/3/2013/04/groovy318x260.png"><img class="alignnone" title="Logo Groovy" src="{{ site.baseurl }}/assets/groovy318x260.png" alt="Logo Groovy" width="318" height="260" border="0" /></a></div>
+<h2 style="clear: both;">Groovy - Introdução</h2>
+<p>O Groovy é uma linguagem dinâmica de script criada para ser executada na plataforma Java, e não é necessariamente um concorrente do Java mas sim um complemento que torna a plataforma ainda mais forte. Além do beneficio de ser uma linguagem de Script e não precisar ser pre-compilado par que seja executado o Groovy ainda conta com o beneficio de ser completamente integrado com a plataforma Java, isto significa que o seu script pode ter acesso ao escopo interno do sistema Java.</p>
+<h2>Onde Utilizar ?</h2>
+<p>Existem situações onde precisamos montar lógica em tempo de execução, o java tem recursos muito bons para trabalhar com reflection, mas quando não é suficiente sentimos falta do bom JavaScript.</p>
+<p>Uma das situações onde estes recursos podem ajudar é quando precisamos dar ao usuário final a possibilidade de definir as regras de negocio dinamicamente:</p>
+<ol>
+<li>O clientes deve receber um desconto quando comprar um determinada combinação de produtos.</li>
+<li>Critério de aprovação de um aluno: "Deve ter uma média maior que 5.5 e ter uma frequência de 70%"</li>
+<li>O 500º cliente do dia recebe um desconto especial.</li>
+</ol>
+<p>Estes são apenas alguns dos muitos exemplos de regras de negocio que podem mudar de um dia para o outro, e para que nao precisemos criar parametrizações monstruosas ou ter que publicar uma nova versao da aplicação a cada dia podemos deixar estas regras nas mãos dos gestores e quando eles acharem pertinente eles mesmos pode editar as regras como se fosse uma fórmula do Excel.</p>
+<h2>O Código</h2>
+</div>
+<div dir="ltr" style="text-align: left;"></div>
+<div dir="ltr" style="text-align: left;">
+<pre class="lang:java decode:true">package br.com.edgardleal.groovy;
+
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyCodeSource;
+import groovy.lang.GroovyObject;
+
+/**
+ *
+ *
+ * @author Edgard Leal
+ * @since 22/04/2013
+ */
+public class Executor {
+    Class classe;
+    GroovyClassLoader loader;
+    final String executorClass = "class Executor{ %1$s public String eval(){return %2$s;}}";
+
+    public Executor() {
+
+    }
+
+    public void loadClass(String code) {
+        loader = new GroovyClassLoader(getClass().getClassLoader());
+        GroovyCodeSource source = new GroovyCodeSource(code, "Executor", "/");
+        classe = loader.parseClass(source);
+    }
+
+    public GroovyObject getObject(String code) throws InstantiationException,
+    IllegalAccessException {
+        if (classe == null) loadClass(code);
+        return (GroovyObject) classe.newInstance();
+    }
+
+    public String eval(String code) throws InstantiationException,
+    IllegalAccessException {
+        return eval(code);
+    }
+
+    public String eval(String code, String variables)
+    throws InstantiationException, IllegalAccessException {
+        return getObject(String.format(executorClass, variables, code))
+            .invokeMethod("eval", new Object[0]).toString();
+    }
+
+    public static void main(String[] args) throws InstantiationException,
+    IllegalAccessException {
+        System.out.println(String.format("%1$s",
+        new Executor().eval("2+x", "int x = 15;")));
+    }
+}</pre>
+</div>
+<p>Site oficial: <a href="http://www.groovy-lang.org/" target="_blank">Groovy</a>{:}{:en}</p>
+<div dir="ltr">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://edgardleal.com/wp-content/uploads/sites/3/2013/04/groovy318x260.png"><img class="alignnone" title="Logo Groovy" src="{{ site.baseurl }}/assets/groovy318x260.png" alt="Logo Groovy" width="318" height="260" border="0" /></a></div>
+<h2 style="clear: both;">Groovy</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">Groovy</span> <span class="hps">is a dynamic</span> <span class="hps">scripting language</span> <span class="hps">designed to run</span> <span class="hps">on the Java platform</span>, <span class="hps">and</span> <span class="hps">is not necessarily a</span> <span class="hps">competitor to</span> <span class="hps">Java</span> <span class="hps">but a complement</span> <span class="hps">that makes</span> <span class="hps">even stronger</span> <span class="hps">platform.</span> <span class="hps">Besides the</span> <span class="hps">benefit</span> <span class="hps">of being a</span> <span class="hps">Script</span> <span class="hps">language</span> <span class="hps">and</span> <span class="hps">does not</span> <span class="hps">need to be</span> <span class="hps atn">pre-</span>compiled <span class="hps">couple</span> <span class="hps">that runs</span> <span class="hps">the</span> <span class="hps">Groovy</span> <span class="hps">also has the</span> <span class="hps">benefit</span> <span class="hps">of being</span> <span class="hps">fully integrated</span> <span class="hps">with</span> <span class="hps">the Java platform</span><span class="">, this means that</span> <span class="hps">your</span> <span class="hps">script</span> <span class="hps">can have</span> <span class="hps">access to the internal</span> <span class="hps">scope of the system</span> <span class="hps">Java.</span></span></p>
+<h2>Where I should use this ?</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">There are situations</span> <span class="hps">where we need to</span> <span class="hps">assemble</span> <span class="hps">logic</span> <span class="hps">at run</span> <span class="hps">time, the</span> <span class="hps">Java</span> <span class="hps">has</span> <span class="hps">very</span> <span class="hps">good resources</span> <span class="hps">to work with</span> <span class="hps">reflection</span>, <span class="hps">but when it is</span> <span class="hps">not enough</span> <span class="hps">we miss</span> <span class="hps">the</span> <span class="hps">good</span> <span class="hps">JavaScript</span>.</p>
+<p><span class="hps">One of the situations</span> <span class="hps">where</span> <span class="hps">these resources</span> <span class="hps">can help</span> <span class="hps">is</span> <span class="hps">when we need to</span> <span class="hps">give the end</span> <span class="hps">user the ability to</span> <span class="hps">define</span> <span class="hps">business</span> <span class="hps">rules</span> <span class="hps">dynamically</span><span class="">:</span></span></div>
+<div dir="ltr"></div>
+<ol>
+<li dir="ltr"><span id="result_box" class="" lang="en"><span class="hps">The client must receive</span> <span class="hps">a discount</span> <span class="hps">when buying a</span> <span class="hps">certain</span> <span class="hps">product mix.</span> </span></li>
+<li dir="ltr"><span id="result_box" class="" lang="en"><span class="hps">Criteria</span> <span class="hps">for approval of a</span> <span class="hps">student:</span> <span class="hps">"It must have</span> <span class="hps">an average</span> <span class="hps">greater than</span> <span class="hps">5.5 and</span> <span class="hps">have a frequency of</span> <span class="hps">70</span>%" </span></li>
+<li dir="ltr"><span id="result_box" class="" lang="en"><span class="hps">The day of the</span> <span class="hps">500th</span> <span class="hps">customer</span> <span class="hps">gets a</span> <span class="hps">special discount</span><span class="">.</span></span></li>
+</ol>
+<div dir="ltr"><span id="result_box" class="" lang="en"><span class="hps">These are just</span> <span class="hps">some of the</span> <span class="hps">many examples of</span> <span class="hps">business</span> <span class="hps">rules that</span> <span class="hps">can change from one</span> <span class="hps">day to the next</span>, <span class="hps">and</span> <span class="hps">so</span> <span class="hps">not</span> <span class="hps">we need to</span> <span class="hps">create</span> <span class="hps">monstrous</span> <span class="hps">parameterization</span> <span class="hps">or having to</span> <span class="hps">publish a new</span> <span class="hps">application</span> <span class="hps">version</span> <span class="hps">every day</span> <span class="hps">we can leave</span> <span class="hps">these rules</span> <span class="hps">in the hands of</span> <span class="hps">managers and</span> <span class="hps">when</span> <span class="hps">they consider it appropriate</span> <span class="hps">they</span> <span class="hps">themselves</span> <span class="hps">you can edit</span> <span class="hps">the rules</span> <span class="hps">as if it were</span> <span class="hps">an Excel formula</span>.</span></p>
+<h2>The Code</h2>
+</div>
+<div dir="ltr" style="text-align: left;"></div>
+<div dir="ltr" style="text-align: left;">
+<pre class="lang:java decode:true">package br.com.edgardleal.groovy;
+
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyCodeSource;
+import groovy.lang.GroovyObject;
+
+/**
+ *
+ *
+ * @author Edgard Leal
+ * @since 22/04/2013
+ */
+public class Executor {
+    Class classe;
+    GroovyClassLoader loader;
+    final String executorClass = "class Executor{ %1$s public String eval(){return %2$s;}}";
+
+    public Executor() {
+
+    }
+
+    public void loadClass(String code) {
+        loader = new GroovyClassLoader(getClass().getClassLoader());
+        GroovyCodeSource source = new GroovyCodeSource(code, "Executor", "/");
+        classe = loader.parseClass(source);
+    }
+
+    public GroovyObject getObject(String code) throws InstantiationException,
+    IllegalAccessException {
+        if (classe == null) loadClass(code);
+        return (GroovyObject) classe.newInstance();
+    }
+
+    public String eval(String code) throws InstantiationException,
+    IllegalAccessException {
+        return eval(code);
+    }
+
+    public String eval(String code, String variables)
+    throws InstantiationException, IllegalAccessException {
+        return getObject(String.format(executorClass, variables, code))
+            .invokeMethod("eval", new Object[0]).toString();
+    }
+
+    public static void main(String[] args) throws InstantiationException,
+    IllegalAccessException {
+        System.out.println(String.format("%1$s",
+        new Executor().eval("2+x", "int x = 15;")));
+    }
+}</pre>
+</div>
+<p>Official Site: <a href="http://www.groovy-lang.org/" target="_blank">Groovy</a>{:}</p>

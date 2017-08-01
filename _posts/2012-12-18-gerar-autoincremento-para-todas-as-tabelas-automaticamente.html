@@ -1,0 +1,38 @@
+---
+layout: post
+title: Gerar autoincremento para todas as tabelas automaticamente
+date: 2012-12-18 19:27:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Código
+- Firebird
+- SQL
+- Utilidades
+tags:
+- Banco
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2012/12/gerar-autoincremento-para-todas-as.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/426405907661300476"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left">
+<div dir="ltr" style="text-align: left">
+<div style="clear: both;text-align: center"><a href="http://1.bp.blogspot.com/-TGEp__5GyEI/UNDFQrQpXII/AAAAAAAABoQ/bEHOi5CYsi8/s1600/FirebirdPhoenix_Logo.gif" style="clear: left;float: left;margin-bottom: 1em;margin-right: 1em"><img alt="Logo do firebird sistema de gerenciamento de banco de dados" border="0" height="200" src="{{ site.baseurl }}/assets/FirebirdPhoenix_Logo.gif" title="FireBird database SGDB" width="200" /></a></div>
+<p>Uma das reclamações das pessoas que começam a utilizar o FireBird é a falta do auto-incremento como é contrados em sistemas como SQL Server e MySQL. Ainda não vamos discutir os prós e contras de se utilizar generators(Sequences), mas criei um código para me auxiliar na tarefa de preparar o banco de dados para rotinas de replicação e que serve para solucionar este problema.</p>
+<p>A rotina abaixo busca por tabelas no banco de dados que contenha chaves primárias de apenas um campo, caso encontre, cria o GENERATOR (SEQUENCE), e a TRIGGER correspondente para gerar o auto-incremento destas tabelas.</p>
+<p>
+<pre>create or alter procedure prc_list_unique_fields_of_table(tablename varchar(32))<br />returns(fieldname varchar(32))<br />as<br />begin<br />    for Select distinct s.rdb$field_name from rdb$indices i inner join<br />    rdb$index_segments s on s.rdb$index_name = i.rdb$index_name<br />    where upper(i.rdb$relation_name) = upper(:tablename) and rdb$unique_flag = 1     <br />       into :fieldname do<br />    begin<br /><br />      suspend;<br />    end<br />end<br /><br /></pre>
+<pre>create or alter procedure prc_generate_auto_inc<br />as<br />declare variable sql varchar(8000);<br />declare variable table_name varchar(32);<br />declare variable key_count integer;<br />declare variable key_name varchar(32);<br />declare variable GENERATOR_OR_TRIGGER_EXISTS INTEGER;<br />declare variable i integer;<br />declare variable SERVER_COUNT INTEGER; --INDICA A QUANTIDADE DE SERVIDORES <br />                                       --PARA O CADO DE REPLICAÇÃO DO BANCO<br />declare variable GENERATOR_NAME VARCHAR(32);<br />begin<br /><br />  i = 0;<br />  SERVER_COUNT = 1;<br />  for Select TRIM(r.rdb$relation_name) from rdb$relations r<br />    where r.rdb$relation_type = 0 and r.rdb$flags = 1 into :table_name do<br />   begin<br />     sql = '';<br />     i = 0;<br />     for Select * from prc_list_unique_fields_of_table(:table_name) into :key_NAME do<br />     begin<br />       -- Utiliza a procedure criada anteriormente <br />       -- foi utilizado o loop, porque se existir apenas uma chave, o valor ja estara<br />       -- atribuido<br />       i = i + 1;<br />     end --for<br />     GENERATOR_NAME = 'GEN_' || :TABLE_NAME || '_ID';<br />     GENERATOR_OR_TRIGGER_EXISTS = NULL;<br />     EXECUTE statement 'SELECT 1 FROM RDB$GENERATORS ' || <br />    ' WHERE RDB$GENERATOR_NAME = ''GEN_' || :TABLE_NAME || <br />    '_ID'' ' INTO :generator_or_trigger_exists;<br /><br />       if (GENERATOR_OR_TRIGGER_EXISTS IS NULL ) then<br />       if (i = 1) then<br />       begin<br />         execute statement 'create generator GEN_' || :TABLE_NAME || '_ID';<br />         EXECUTE STATEMENT 'CREATE TRIGGER ' || :TABLE_NAME || '_BI FOR ' ||<br />            :TABLE_NAME || ' ACTIVE BEFORE INSERT POSITION 0 AS begin ' ||<br />         ' IF(NEW.' || :KEY_NAME || ' IS NULL) THEN new.' || :KEY_NAME ||<br />         ' = GEN_ID(GEN_' || :TABLE_NAME || '_ID,' ||<br />         CAST(:SERVER_COUNT AS VARCHAR(5)) || '); END';<br />       end--if<br />   end--FOR<br />end<br /><br /></pre>
+<p>Recursos utilizados nestes scripts:<br /><b>TRIM</b>: retorna o texto informado no parâmetro sem os espaços a esquerda e direita.<br /><b>EXECUTE STATEMENT</b>: Execute um comando contido na string, muito útil para criação de consultas &nbsp; <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dinamicamente.<br /><b>RDB$RELATIONS</b>: Tabela do sistema que contem todas as tabelas e views do banco de dados.<br /><b>UPPER</b>: Retorna o parâmetro informado em caixa alta (todas as letras maiúsculas )<br /><b>CAST</b>: Converte um valor para um determinado tipo de dados. No nosso exemplo foi convertido um valor inteiro para texto ( varchar(5) ).</div>
+<p></div>

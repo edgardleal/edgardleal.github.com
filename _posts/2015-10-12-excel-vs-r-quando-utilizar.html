@@ -1,0 +1,184 @@
+---
+layout: post
+title: "{:br}Excel vs R Quando utilizar{:}{:en}Excel vs R - When use{:}"
+date: 2015-10-12 07:00:24.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- banco
+- Banco de Dados
+- Utilidades
+tags:
+- Banco
+- Comparativo
+- Estatística
+- Excel
+- R
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: "{:br}Excel vs R{:}{:en}Excel vs R{:}"
+  _yoast_wpseo_metadesc: "{:br}Excel vs R - Neste post vamos ver qual a diferença
+    entre estas duas ferramentas e como decidir como quando utilizar o Excel ou o
+    R{:}{:en}Excel vs R - In this post we will see what the difference between these
+    two tools and how to decide when to use Excel or R{:}"
+  _yoast_wpseo_linkdex: '62'
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _thumbnail_id: '107'
+  cta_content_placement: below
+  _publicize_twitter_user: "@EdgardLeal"
+  _wpas_done_all: '1'
+  _yoast_wpseo_focuskw_text_input: "{:br}Excel vs R{:}{:en}Excel vs R{:}"
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>{:br}[caption id="attachment_102" align="aligncenter" width="223"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/09/R_logo.png"><img class="wp-image-102 size-full" title="R Language compared with Excel" src="{{ site.baseurl }}/assets/R_logo.png" alt="R logo" width="223" height="168" /></a> R logo[/caption]</p>
+<h2>Excel vs R - Porque comparar ?</h2>
+<p>Estas duas ferramentas possuem funcionalidades semelhantes e por isso gera este tipo de questionamento, se são parecidas então não preciso estudar as duas ?! Qual a melhor ? Este tipo de pergunta é aceitável e justificável para ferramentas novas ou que possuem uma grande diferença de "idade". No caso do <strong>Excel</strong> e do <strong>R</strong>, talvez seja um pouco diferente porque são duas ferramentas criadas a muito tempo e as duas vem se mantendo firmes no mercado, o <strong>Excel</strong> como ferramenta fortemente presente em quase todos os ambientes corporativos, e o <strong>R</strong> como uma ferramenta poderosa na análise de dados. Continue lendo este post que eu espero que lhe auxilie nesta decisão.</p>
+<p><!--more--></p>
+<h2>A Linguagem R</h2>
+<p>R é uma linguagem de programação criada para análise de dados e estatística, e tem como uma de suas principais características e o fato de que o software <strong>R</strong> mantém os dados analisados todos na <strong>memória</strong> do computador que estiver sendo utilizado no momento, isto faz com que o processamento seja extremamente rápido. O <strong>R</strong> também possuem recursos que podem lembrar algumas facilidades propiciadas pelo <strong>Excel</strong>, como poder alterar um grande volume de informação de forma automatizada que é muito útil na análise de dados quando se faz necessário tratar as informações antes da análise. Um ponto muito importante ao para decidir utilizar o R é a sua popularidade, mesmo sendo uma linguagem de programação focada na análise de dados esta na vigésima posição no ranking <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" target="_blank">tiobe</a> que é um ranking de popularidade de todas as principais linguagens de programação, esta popularidade é importante para que o projeto tenha um certa garantia de que será mantido por um longo tempo, além disso faz com que haja uma grande número de pessoas colaborando para o projeto com correções e criações de pacotes de utilitários que somam ate a data de escrita deste post mais de <a href="https://www.cran.r-project.org/" target="_blank"><strong>7000</strong></a> pacotes de utilitários que incluem ferramentas para buscar informações na internet, criação dos mais diversos tipos de gráficos entre outros muitos.</p>
+<p>[caption id="attachment_194" align="aligncenter" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/10/excel_logo.png"><img class="wp-image-194 size-thumbnail" title="Excel compared with R " src="{{ site.baseurl }}/assets/excel_logo-150x150.png" alt="Excel logo" width="150" height="150" /></a> Excel[/caption]</p>
+<h2>Sobre o Excel</h2>
+<p>O Excel é um editor de planilhas criado pela Microsoft com uma interface gráfica rica e muitos recursos visuais o que faz com que seja uma ferramenta útil não só para criação e cálculos de planilhas como também uma excelente ferramenta com criar apresentação de dados. O Excel faz parte do pacote Office da Microsoft que pegou uma carona na popularização do Windows e hoje é conhecido por quase todas as pessoas que utilizam um computador no mundo inteiro e é referencia como aplicativo para edição de planilhas, por isso é uma excelente opção quando se pensa em criar um conteúdo de fácil acesso. O Excel ainda possui uma infinidade de recursos gráfico para edição de conteúdo e criação de formulas, este foco em recursos gráficos faz com que seja relativamente fácil de utilizar não requerendo muitos conhecimentos técnicos para começar a tirar proveito dos principais recursos disponibilizados. Toas estas facilidades tem um custo, grande parte dos recursos de hardware ( CPU / Memória ) utilizados pelo Excel são reservados para estes recursos gráficos não sobrando muito para as operações dos os dados, além que é um software proprietário da Microsoft e por isso não tem uma participação ativa de programadores, e por isso é difícil encontrar complementos para funcionalidades muito especificas e quando encontradas são normalmente pagas.</p>
+<h2><span style="font-size: large;">Limitação de linhas por planilha do Excel</span></h2>
+<p>Caso você pretenda analisar mas de 1 000 000 de registros, o Excel não será suficiente.</p>
+<pre><code>+-----------------+-----------+--------------+---------------------+
+|                 | Max. Rows | Max. Columns | Max. Cols by letter |
++-----------------+-----------+--------------+---------------------+
+| Excel 365*      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2013      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2010      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2007      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2003      | 65,536    | 256          | IV                  |
+| Excel 2002 (XP) | 65,536    | 256          | IV                  |
+| Excel 2000      | 65,536    | 256          | IV                  |
+| Excel 97        | 65,536    | 256          | IV                  |
+| Excel 95        | 16,384    | 256          | IV                  |
+| Excel 5         | 16,384    | 256          | IV                  |
++-----------------+-----------+--------------+---------------------+</code></pre>
+<p>Fonte: <a href="http://superuser.com/questions/366468/what-is-the-maximum-allowed-rows-in-a-microsoft-excel-xls-or-xlsx?answertab=active#tab-top" target="_blank">http://superuser.com/</a></p>
+<h2>Tabela comparativa</h2>
+<table border="1" width="100%">
+<thead>
+<tr>
+<th>Recurso</th>
+<th>R</th>
+<th>Excel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> Interface gráfica</td>
+<td> <span style="color: #ff0000;">Não</span></td>
+<td> <span style="color: #008000;">Sim</span></td>
+</tr>
+<tr>
+<td>Volume de dados</td>
+<td><span style="color: #008000;">Alto</span></td>
+<td><span style="color: #ff0000;">Baixo</span></td>
+</tr>
+<tr>
+<td>Script para automatização</td>
+<td><span style="color: #008000;">Sim</span></td>
+<td><span style="color: #ff0000;">Não</span></td>
+</tr>
+<tr>
+<td>Pacotes complementares</td>
+<td><span style="color: #008000;">Muitos</span></td>
+<td><span style="color: #ff0000;">Poucos</span></td>
+</tr>
+</tbody>
+</table>
+<h2>Conclusão</h2>
+<p>Como em todo projeto de análise de dados, identifique antes de tudo sua necessidade e objetivos de sua análise, como volume de dados, se o usuário final irá editar o conteúdo final,  e a partir destas informações você poderá decidir onde cada ferramenta será melhor utilizada, desta forma Excel vs R é uma "batalha" desnecessária.</p>
+<h2>RStudio</h2>
+<p>É importante lembrar que neste post foi comparado o R "puro", existe uma IDE ( Interface Integrada de Desenvolvimento ) para o R que é o <a href="https://www.rstudio.com/" target="_blank">RStudio</a>, que apresenta uma outra infinidade de recursos para trabalhar com o R como criação de documentos/relatórios dinâmicos e slides utilizando linguagem <a href="https://pt.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>  que podem ser exportados para HTML e PDF, e quando se tem um bom conhecimento destas ferramentas pode-se desconsiderar as limitações gráficas do R.</p>
+<p><strong>Fontes</strong>:</p>
+<ul>
+<li><a href="https://pt.wikipedia.org/wiki/Microsoft_Excel" target="_blank">Wikipedia - Excel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/R_%28programming_language%29" target="_blank">Wikipedia - R</a></li>
+<li><a href="https://www.cran.r-project.org/" target="_blank">Cran </a></li>
+<li><a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" target="_blank">Tiobe</a></li>
+<li><a href="https://pt.wikipedia.org/wiki/Markdown" target="_blank">Wikipedia - Markdown</a></li>
+<li><a href="https://www.rstudio.com/" target="_blank">RStudio</a></li>
+</ul>
+<p>{:}{:en}[caption id="attachment_102" align="aligncenter" width="223"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/09/R_logo.png"><img class="wp-image-102 size-full" title="R Language compared with Excel" src="{{ site.baseurl }}/assets/R_logo.png" alt="R logo" width="223" height="168" /></a> R logo[/caption]</p>
+<h2><span id="result_box" class="short_text" lang="en"><span class="hps">Excel</span> <span class="hps">vs</span> <span class="hps">R -</span> <span class="hps">Why</span> <span class="hps">compare</span><span class="">?</span></span></h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">These two tools</span> <span class="hps">have similar</span> <span class="hps">functionality and so</span> <span class="hps">generates this</span> <span class="hps">kind of questioning</span>, <span class="hps">whether they are</span> <span class="hps">similar</span> <span class="hps">so no</span> <span class="hps">need to study</span> <span class="hps">the two</span>! <span class="hps">What is the best ?</span> <span class="hps">This type of question</span> <span class="hps">is acceptable</span> <span class="hps">and justifiable</span> <span class="hps">to</span> <span class="hps">new tools</span> <span class="hps">or have</span> <span class="hps">a big difference in</span> <span class="hps">"age"</span>. <span class="hps">In the case of</span> <strong><span class="hps">Excel</span></strong> <span class="hps">and</span> <span class="hps">R,</span> <span class="hps">may be a</span> <span class="hps">little different</span> <span class="hps">because they are</span> <span class="hps">two tools</span> <span class="hps">created</span> <span class="hps">a long time</span> <span class="hps">and the two</span> <span class="hps">has remained</span> <span class="hps">firm</span> <span class="hps">in the market</span>, <strong>Excel</strong> <span class="hps">how strongly</span> <span class="hps">this</span> <span class="hps">tool</span> <span class="hps">in most</span> <span class="hps">corporate environments</span>, <span class="hps">and</span> <span class="hps">R</span> <span class="hps">as a tool</span> <span class="hps">powerful</span> <span class="hps">data analysis</span>. <span class="hps">Continue</span> <span class="hps">reading this</span> <span class="hps">post I</span> <span class="hps">hope</span> <span class="hps">to assist</span> <span class="hps">you in this</span> <span class="hps">decision.</span></span></p>
+<h2>The R Language</h2>
+<p><span id="result_box" class="" lang="en"><span title="R é uma linguagem de programação criada para análise de dados e estatística, e tem como uma de suas principais características e o fato de que o software R mantém os dados analisados todos na memória do computador que estiver sendo utilizado no momento, isto faz com que">R is a programming language designed for data analysis and statistics, and has as one of its main characteristics and the fact that the R software maintains data analyzed all the computer memory that is currently in use, this causes </span><span title="o processamento seja extremamente rápido.">processing is extremely fast. </span><span title="OR também possuem recursos que podem lembrar algumas facilidades propiciadas pelo Excel, como poder alterar um grande volume de informação de forma automatizada que é muito útil na análise de dados quando se faz necessário tratar as informações antes da análise.">OR also have features that may remind some facilities offered by <strong>Excel</strong>, and can change a large amount of information in an automated manner which is very useful in data analysis when it is necessary to treat the information prior to analysis. </span><span title="Um ponto muito importante ao para decidir utilizar o R é a sua popularidade, mesmo sendo uma linguagem de programação focada na análise de dados esta na vigésima posição no ranking tiobe que é um ranking de popularidade de todas as principais linguagens de programação, esta popularidade é">A very important point when deciding to use the R is its popularity, even being a focused programming language in data analysis is in twentieth position in <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" target="_blank">TIOBE</a> ranking which is a popularity ranking of all major programming languages, this popularity is </span><span title="importante para que o projeto tenha um certa garantia de que será mantido por um longo tempo, além disso faz com que haja uma grande número de pessoas colaborando para o projeto com correções e criações de pacotes de utilitários que somam ate a data de escrita deste post">important for the project to have a certain guarantee that it will be maintained for a long time also means that there is a large number of people contributing to the project with corrections and creations utilities packages that add up to the date of writing this post </span><span title="mais de 7000 pacotes de utilitários que incluem ferramentas para buscar informações na internet, criação dos mais diversos tipos de gráficos entre outros muitos.">more than 7,000 utility packages that include tools to search for information on the Internet, creation of all kinds of graphics among many others.</span></span></p>
+<p>[caption id="attachment_194" align="aligncenter" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/10/excel_logo.png"><img class="wp-image-194 size-thumbnail" title="Excel compared with R " src="{{ site.baseurl }}/assets/excel_logo-150x150.png" alt="Excel logo" width="150" height="150" /></a> Excel[/caption]</p>
+<h2>About the Excel</h2>
+<p><span id="result_box" class="" lang="en"><span title="O Excel é um editor de planilhas criado pela Microsoft com uma interface gráfica rica e muitos recursos visuais o que faz com que seja uma ferramenta útil não só para criação e cálculos de planilhas como também uma excelente ferramenta com criar apresentação de dados."><strong>Excel</strong> is a spreadsheet editor created by Microsoft with a rich graphical interface and many visuals that makes it a useful tool not only for creating spreadsheets and calculations as well as an excellent tool to create presentation data. </span><span title="O Excel faz parte do pacote Office da Microsoft que pegou uma carona na popularização do Windows e hoje é conhecido por quase todas as pessoas que utilizam um computador no mundo inteiro e é referencia como aplicativo para edição de planilhas, por isso é uma excelente opção quando">Excel is part of Microsoft Office package that hitched a ride on the popularity of Windows and is now known to almost everyone who uses a computer in the world and is a reference to application for editing spreadsheets, so it is an excellent option when </span><span title="se pensa em criar um conteúdo de fácil acesso.">You are thinking about creating a content easily accessible. </span><span title="O Excel ainda possui uma infinidade de recursos gráfico para edição de conteúdo e criação de formulas, este foco em recursos gráficos faz com que seja relativamente fácil de utilizar não requerendo muitos conhecimentos técnicos para começar a tirar proveito dos principais recursos disponibilizados.">Excel also has a multitude of graphic features for editing and content creation formulas, this focus on graphics capabilities makes it relatively easy to use and does not require much technical knowledge to start taking advantage of key features available. </span><span title="Toas estas facilidades tem um custo, grande parte dos recursos de hardware ( CPU / Memória ) utilizados pelo Excel são reservados para estes recursos gráficos não sobrando muito para as operações dos os dados, além que é um software proprietário da Microsoft e por isso não tem">But these facilities has a cost, much of the hardware resources (CPU / memory) used by Excel are reserved for these graphics capabilities not much left for the operations of the data, and that is a Microsoft proprietary software and so has not </span><span title="uma participação ativa de programadores, e por isso é difícil encontrar complementos para funcionalidades muito especificas e quando encontradas são normalmente pagas.">active participation of programmers, and so it's hard to find supplements for very specific features and when found are usually paid.</span></span></p>
+<h2><span style="font-size: large;"><span id="result_box" class="short_text" lang="en"><span class="hps">The limitation</span> of <span class="hps">lines</span> <span class="hps">in</span> <span class="hps">Excel spreadsheet</span></span></span></h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">If you plan to</span> <span class="hps">analyze</span> <span class="hps">more than 1,000</span> <span class="hps">000</span> <span class="hps">records</span>, Excel <span class="hps">will not suffice.</span></span></p>
+<pre><code>+-----------------+-----------+--------------+---------------------+
+|                 | Max. Rows | Max. Columns | Max. Cols by letter |
++-----------------+-----------+--------------+---------------------+
+| Excel 365*      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2013      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2010      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2007      | 1,048,576 | 16,384       | XFD                 |
+| Excel 2003      | 65,536    | 256          | IV                  |
+| Excel 2002 (XP) | 65,536    | 256          | IV                  |
+| Excel 2000      | 65,536    | 256          | IV                  |
+| Excel 97        | 65,536    | 256          | IV                  |
+| Excel 95        | 16,384    | 256          | IV                  |
+| Excel 5         | 16,384    | 256          | IV                  |
++-----------------+-----------+--------------+---------------------+</code></pre>
+<p>Source: <a href="http://superuser.com/questions/366468/what-is-the-maximum-allowed-rows-in-a-microsoft-excel-xls-or-xlsx?answertab=active#tab-top" target="_blank">http://superuser.com/</a></p>
+<h2>Comparative table</h2>
+<table border="1" width="100%">
+<thead>
+<tr>
+<th>Resource</th>
+<th>R</th>
+<th>Excel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> Graphic Interface</td>
+<td> No</td>
+<td> Yes</td>
+</tr>
+<tr>
+<td>Data volume</td>
+<td>Hight</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Script for automation</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Complementary packages</td>
+<td>Many</td>
+<td>Few</td>
+</tr>
+</tbody>
+</table>
+<h2>Conclusion</h2>
+<div dir="ltr"> <span id="result_box" class="" lang="en"><span class="hps">As in all</span> <span class="hps">data</span> <span class="hps">analysis project</span>, identify <span class="hps">first of all</span> <span class="hps">your needs</span> <span class="hps">and goals of your</span> <span class="hps">analysis</span>, <span class="hps">how</span> <span class="hps">much data</span>, <span class="hps">if the end user</span> <span class="hps">will edit</span> <span class="hps">the final content</span>, <span class="hps">and</span> <span class="hps">from this information</span> <span class="hps">you can decide</span> <span class="hps">where each</span> <span class="hps">tool is</span> <span class="hps">best used</span> <span class="hps">thus</span> <span class="hps">Excel vs R</span> <span class="hps">is</span> <span class="hps">a unnecessary "battle</span>"<span class="hps">.</span></span></div>
+<h2>Extra - RStudio</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">Please note that</span> <span class="hps">this post</span> <span class="hps">was compared</span> <span class="hps">AR</span> <span class="hps">"pure"</span>, there is an <span class="hps">IDE</span> <span class="hps atn">interface (</span>Integrated Development) for <span class="hps">R</span> <span class="hps">which is the</span> <a href="https://www.rstudio.com/" target="_blank">RS</a><span class="hps">tudio</span>, which <span class="hps">presents another</span> <span class="hps">multitude of features</span> <span class="hps">for working with</span> <span class="hps">R</span> <span class="hps">as</span> <span class="hps">document creation</span> <span class="hps">/</span> <span class="hps">dynamic reports</span> <span class="hps">and</span> <span class="hps">slides</span> <span class="hps">using</span> <span class="hps">Markdown</span> <span class="hps">language that</span> <span class="hps">can be exported to</span> <span class="hps">HTML</span> <span class="hps">and</span> <span class="hps">PDF,</span> <span class="hps">and</span> <span class="hps">when you have a</span> <span class="hps">good knowledge</span> <span class="hps">of these tools</span> <span class="hps">can</span> <span class="hps">disregard the</span> <span class="hps">graphical limitations</span> <span class="hps">of the</span> <span class="hps">R</span></span>.</p>
+<p><strong>Sources</strong>:</p>
+<ul>
+<li><a href="https://pt.wikipedia.org/wiki/Microsoft_Excel" target="_blank">Wikipedia - Excel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/R_%28programming_language%29" target="_blank">Wikipedia - R</a></li>
+<li><a href="https://www.cran.r-project.org/" target="_blank">Cran </a></li>
+<li><a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" target="_blank">Tiobe</a></li>
+<li><a href="https://pt.wikipedia.org/wiki/Markdown" target="_blank">Wikipedia - Markdown</a></li>
+<li><a href="https://www.rstudio.com/" target="_blank">RStudio</a></li>
+</ul>
+<p>{:}</p>

@@ -1,0 +1,66 @@
+---
+layout: post
+title: Conectando-se ao banco Derby
+date: 2013-06-10 20:51:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- banco
+- Derby
+- Dicas
+- Java
+- SQL
+tags:
+- Banco
+- Dicas
+- Java
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/06/conectando-se-ao-banco-derby.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/638155064490817851"
+  _thumbnail_id: '53'
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Derby
+  _yoast_wpseo_metadesc: Veja como se conectar e utilizar o banco de dados embarcado
+    Derby em seu projeto Java
+  _yoast_wpseo_linkdex: '92'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://edgardleal.com/wp-content/uploads/sites/3/2013/06/derby-logo-web.png"><img class="alignnone" title="Logo do Apache Derby" src="{{ site.baseurl }}/assets/derby-logo-web.png" alt="Logo do Apache Derby" width="220" height="66" border="0" /></a></div>
+<h2>Introdução</h2>
+<p>Apache Derby é um sistema de gerenciamento de banco de dados relacional Java que pode ser embutido em programas Java<b> </b>e que possui quase todos os recursos dos grandes SGDBS.<b><br />
+</b></p>
+<h2>História:</h2>
+<p>Apache Derby originou-se na Cloudscape Inc, uma start-up de Oakland, California fundada em 1996 para desenvolver tecnologia Java para banco de dados. A primeira versão do motor do banco de dados, foi nomeada JBMS, em 1997. Posteriormente foi renomeada para Cloudscape e novas versões eram desenvolvidas a cada seis meses.<br />
+Em 1999 a Informix Software, Inc., comprou a Cloudscape, Inc. Em 2001 a IBM adquiriu os ativos da Informix Software, incluindo a Cloudscape. O banco de dados foi registrado como IBM Cloudscape e suas versões continuaram a ser produzidas, principalmente focando o uso em aplicações embarcadas usando os produtos Java da IBM.<br />
+Em agosto de 2004 a IBM contribuiu com o código para a Apache Software Foundation como Derby, um projecto incubado mantido pelo projeto Apache DB. Em julho de 2005 o projeto Derby foi promovido na incubadora do Apache e agora está sendo desenvolvido como um sub projeto do DB, um projeto de alto nível na Apache. Anteriormente à promoção do Derby na incubação, a Sun uniu-se ao projeto Derby com a intenção de usar o Derby como um componente de seus produtos,<sup><a href="http://pt.wikipedia.org/wiki/Derby_%28banco_de_dados%29#cite_note-3">3</a></sup> e com o lançamento do Java 6 em dezembro de 2006, a Sun incluiu o Derby no JDK renomeado como Java DB.<br />
+Em março de 2008 a IBM anunciou a remoção do produto Cloudscape do mercado, mas continuará contribuindo com o projeto.<br />
+Fonte: (<a href="http://pt.wikipedia.org/wiki/Derby_%28banco_de_dados%29" target="_blank">wikipedia</a>)</p>
+<h2>Instalando o Derby</h2>
+<p>Você pode fazer o download do arquivo jar <a href="http://db.apache.org/derby/releases/release-10.10.1.1.cgi" target="_blank">aqui</a></p>
+<pre class="lang:sh decode:true">private static void createConnection(){
+        Connection conn;
+        try
+        {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            conn = DriverManager.getConnection("jdbc:derby:myDB;create=true;");
+        }catch (Exception except){
+            except.printStackTrace();
+        }finally{
+            conn.close();
+        }
+}</pre>
+</div>
+<p>OBS: O parâmetro "create=true" informa que se o arquivo nao existir o driver devera cria-lo.</p>
+<p>&nbsp;</p>
+<p>Site oficial: <a href="https://db.apache.org/derby/" target="_blank">Apache Derby</a>.</p>

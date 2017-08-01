@@ -1,0 +1,35 @@
+---
+layout: post
+title: Função split no SQL Server para dividir um texto em um array
+date: 2012-12-14 00:20:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Dicas
+- SQL Server
+- Utilidades
+tags:
+- Banco
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2012/12/funcao-split-no-sql-server.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/8934142838878719001"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left">
+<div style="clear: both;text-align: center"><a href="http://3.bp.blogspot.com/-9S8ILTGXT00/UMp9su9qp8I/AAAAAAAABlU/oEBpWQ21o0o/s1600/sqltrigger.jpg" style="clear: right;float: right;margin-bottom: 1em;margin-left: 1em"><img alt="função split para dividir um texto em um array" border="0" height="125" src="{{ site.baseurl }}/assets/sqltrigger.jpg" title="Trigger sql server 2008" width="320" /></a></div>
+<p>&nbsp; Existem situações do cotidiano em que precisamos de um recurso sisponível para a grande maioria das linguagens de programação que é o SPLIT, que consistem em dividir um texto em várias partes tendo como base um caractere delimitador.</p>
+<p>EX.: "Maria Jose João Paulo Joaquina"<br />Imagine que você precise destes nomes separados em uma lista. É isto que o split faria.<br />Vi alguns exemplos na internet, mas não gostei da forma que foi implementado, por isso criei esta que vou apresentar.</p>
+<pre>if exists (Select 1 from sysobjects where name = 'fn_split')<br />   drop function fn_split<br />go<br /><br />create function fn_split(@texto varchar(8000)) returns @result table(codigo int, palavra varchar(100))<br />as<br />begin<br />  declare @parte varchar(100)<br />  declare @index int, @count int = 1<br />  declare @lastIndex int = 0<br /><br />-- remove os espaços das estrimidades esquerda e direita<br />  set @texto = rtrim(ltrim(@texto))<br /><br />-- Remove os espaços repetidos (duplos) <br />set @texto = replace(@texto, ' &nbsp;', ' ') + ' ' <br /><br />  set @index = charindex(' ', @texto)<br /><br />  while @index &lt;&gt; 0<br />  begin<br />    set @parte = SUBSTRING(@texto,@lastIndex, @index - @lastIndex)<br />    insert into @result Select @count , @parte<br /><br />    set @lastIndex = @index<br />    set @count = @count + 1<br />    set @index = charindex(' ', @texto, @lastIndex + 1)<br />  end<br /><br />    return<br />end<br /><br /><br />select * from fn_split('Teste de divisão de texto em &nbsp;array &nbsp;')<br /> <br /></pre>
+<p>Para este código foram utilizadas as seguintes funções:</p>
+<pre> <br /><br />-- Retorna uma parte do texto informado, a partir do número informado, o segundo --parâmetro é a quantidade de caracteres retornados.<br />SUBSTRING<br /><br /><br />--  Remove todos os espaços em brando a direita do texto.<br />RTRIM<br /><br />--  Remove todos os espaços em branco a esquerda do texto informado.<br />LTRIM<br /><br />--  Retorna o texto informado, tendo substituindo todas ocorrências do texto<br />-- informado no 2º parâmetro pelo 3º parâmetro.<br />REPLACE<br /><br />--Retorna a posição de um caractere dentro de um texto. O 3º e ultimo parâmetro é<br />-- opcional, indica o inicio do texto a ser&nbsp;considerado, caso não seja <br />-- informado, a busca inicia-se de 0(zero).<br />CHARINDEX<br /></pre>
+</div>

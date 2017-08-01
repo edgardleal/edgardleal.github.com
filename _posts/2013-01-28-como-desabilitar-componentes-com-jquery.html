@@ -1,0 +1,71 @@
+---
+layout: post
+title: "{:br}Como desabilitar componentes com jQuery{:}{:en}Disabling components with
+  jQuery{:}"
+date: 2013-01-28 19:54:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- JavaScript
+- JQuery
+- Utilidades
+tags:
+- JavaScrip
+- jQuery
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/01/como-desabilitar-componentes-com-jquery.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/3668990008221479658"
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw: "{:br}JQuery{:}{:en}jQuery{:}"
+  _yoast_wpseo_metadesc: "{:br}Utilizando o jQuery para desabilitar/disable componentes.
+    Este é um recurso útil para controle de acesso a recursos e Ajax{:}{:en}Using
+    jQuery to disable components. This is a useful feature to control access to resources
+    and Ajax{:}"
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+  _wpcom_is_markdown: '1'
+  _yoast_wpseo_linkdex: '66'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<p>{:br}</p>
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-i7uzynQlTS0/UQbXS3LzpBI/AAAAAAAACCQ/AFRJL48_9ls/s1600/jquery-logo.jpeg"><img src="{{ site.baseurl }}/assets/jquery-logo.jpeg" alt="" width="320" height="78" border="0" /></a></div>
+<h2>Desabilitar componentes</h2>
+<p>Sempre tive problemas em aplicações desktop com operações demoradas quando o usuário clicava no botão e como o processamento demorava ele continuava a clicar ate obter a resposta esperada. Este procedimento vai no mínimo sobrecarregar o seu banco de dados com muitas requisições de um mesmo usuário para o mesmo serviço.</p>
+</div>
+<h2>Resolvendo o problema</h2>
+<p>Uma possível solução para este problema é desabilitar o componente/botão assim que ele for clicado e quando a rotina terminar, habilita-se novamente este botão.</p>
+<p>Exemplos com jQuery:</p>
+<div dir="ltr" style="text-align: left;">
+<pre class="lang:js decode:true">//para desabilitar por nome (name)
+$('[name="teste"]').attr('disabled', true);</pre>
+<pre class="lang:js decode:true ">//para habilitar por ID
+$('#someElement').removeAttr('disabled');</pre>
+</div>
+<p>Documentação do jQuery sobre a opção <strong>attr</strong>: <a href="https://api.jquery.com/attr/" target="_blank">https://api.jquery.com/attr/</a>{:}{:en}</p>
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-i7uzynQlTS0/UQbXS3LzpBI/AAAAAAAACCQ/AFRJL48_9ls/s1600/jquery-logo.jpeg"><img src="{{ site.baseurl }}/assets/jquery-logo.jpeg" alt="" width="320" height="78" border="0" /></a></div>
+<h2>Disabling components</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">I always had</span> <span class="hps">problems</span> <span class="hps">in</span> <span class="hps">desktop</span> <span class="hps">applications with</span> <span class="hps">lengthy operations</span> <span class="hps">when the user</span> <span class="hps">clicked the</span> <span class="hps">button and</span> <span class="hps">as</span> <span class="hps">he continued</span> <span class="hps">to click</span> <span class="hps">processing</span> <span class="hps">took</span> <span class="hps">up to</span> <span class="hps">get</span> <span class="hps">the expected response</span>. <span class="hps">This procedure</span> <span class="hps">will</span> <span class="hps">at least</span> <span class="hps">clutter up your</span> <span class="hps">database with</span> <span class="hps">many</span> <span class="hps">requests from the same</span> <span class="hps">user</span> <span class="hps">for the same service</span><span class="">.</span></span></p>
+</div>
+<h2>Solving the problem</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">A possible</span> <span class="hps">solution to this problem</span> <span class="hps">is to disable</span> <span class="hps">the component</span> <span class="hps">/</span> <span class="hps">button as soon as</span> <span class="hps">it is clicked</span> <span class="hps">and</span> <span class="hps">when the routine</span> <span class="hps">is finished,</span> <span class="hps">it</span> <span class="hps">enables</span> <span class="hps">again</span> <span class="hps">this button.</span></span></p>
+<p><span class="hps">Examples</span> <span class="hps">with</span> <span class="hps">jQuery</span>:</p>
+<div dir="ltr" style="text-align: left;">
+<pre class="lang:js decode:true">// For disable by name
+$('[name="test"]').attr('disabled', true);</pre>
+<pre class="lang:js decode:true">// For disable by ID
+$('#someElement').removeAttr('disabled');</pre>
+</div>
+<p>Official jQuery documentation about  <strong>attr</strong>: <a href="https://api.jquery.com/attr/" target="_blank">https://api.jquery.com/attr/</a>{:}</p>

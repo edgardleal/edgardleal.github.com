@@ -1,0 +1,58 @@
+---
+layout: post
+title: "{:br}Single page application com VueJS{:}{:en}Single page application with
+  VueJS{:}"
+date: 2017-03-16 09:31:32.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- JavaScript
+tags:
+- JavaScrip
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: VueJS
+  _yoast_wpseo_focuskw: VueJS
+  _yoast_wpseo_linkdex: '93'
+  _yoast_wpseo_primary_category: '14'
+  _publicize_twitter_user: "@EdgardLeal"
+  _yoast_wpseo_metadesc: "{:br}Veja neste post como criar Aplicações single page utilizando
+    o framework reativo VueJS e seja mais produtivo em seus proximos projetos.{:}{:en}Learn
+    in this post how to create a single page applications using VueJS a reactive and
+    progressive frame work and be more productive in your next project.{:}"
+  _wpas_done_all: '1'
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>[caption id="attachment_362" align="alignleft" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2017/03/VueJS_Logo.png"><img class="size-thumbnail wp-image-362" src="{{ site.baseurl }}/assets/VueJS_Logo-150x150.png" alt="VueJS" width="150" height="150" /></a> VueJS[/caption]</p>
+<p>VueJS é um framework Javascript reativo e é também conhecido como um framework progressivo, o que significa basicamente que você não vai precisar estudar toda a documentção do framework para começar a usar.</p>
+<p>Vamos ver um exemplo básico com o mínimo preciso para ter um código VueJS funcionando:</p>
+<p><script async src="//jsfiddle.net/cohc4xdz/1/embed/js,html/"></script></p>
+<p>Declaramos uma div simples com o <em>id</em> de nossa aplicação e com o template <em>{{text}}</em> que será substituido pelo valor da variável <em>text</em>.</p>
+<ol>
+<li>Na aba HTML importamos o código do framework do <em>cdnjs</em></li>
+<li>Na aba Javascript criamos a instancia de nossa aplicação</li>
+<li>O parâmetro <em>el</em> é onde deve ser inormado um QuerySelector indicando onde a aplicação será renderizada.</li>
+<li>E por fim o parâmetro <em>data</em> que irá conter os valores utilizados em nossa aplicação, em nosso exemplo a variável <em>text</em>.</li>
+</ol>
+<h2>VueJS para usuários de JQuery</h2>
+<p>O jQuery tem um objetivo diferente do VueJS e por isso não devem ser considerados concorrentes, e por terem paradigmas muito diferentes, é recomendado que não sejam utilizados no mesmo projeto.</p>
+<p>Enquanto o jQuery é uma ferramenta que tem como principal objetivo auxiliar na manipulação dirata do DOM ( HTML ) o VueJS se propoe a encapsular todo a manipulação do DOM. Neste momento surge a pergunta mais importante:</p>
+<p><em>E como posso mudar a informação exibida na tela ?</em></p>
+<p>O VueJS espera que seu desenvolvimento seja focado em  manipular os dados e não o html, sendo assim, sempre que você lterar os valores do campo <em>data</em> definido no setup de nossa aplicação o framework irá alterar automaticamente todos os pontos do html que fazem referencia a este valor.</p>
+<p>O objetivo é que você não precise mais se preocupar com a renderização de seus dados sobrando tempo para se dedicar aos pontos mais importantes de sua aplicação.</p>
+<p>Agora um exemplo demonstrando o framework fazendo este trabalho de "comunicação" dos dados da tela para o seu objeto e de seu objeto para a tela o que é conhecido como <strong>Two Way Data Bind.</strong></p>
+<p>Ex:<br />
+<script async src="//jsfiddle.net/edgardleal/z45bhc6m/1/embed/js,html,result/"></script></p>
+<p>No exemplo acima, sempre que o <em>iniput</em> for alterado  o texto dentro do <em>span </em>será automaticamente alterado, mostrando a "reatividade" do framework.</p>
+<h4></h4>
+<h4>Referencias:</h4>
+<p><a href="https://github.com/vuejs/vue">VueJS no GitHub</a></p>

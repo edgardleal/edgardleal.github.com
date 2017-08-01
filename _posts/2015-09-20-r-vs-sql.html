@@ -1,0 +1,238 @@
+---
+layout: post
+title: "{:br}R vs SQL{:}{:en}R for SQL users a simple guide{:}"
+date: 2015-09-20 13:10:08.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- banco
+- Dicas
+- SQL
+- Tutorial
+- Utilidades
+tags:
+- Banco
+- Comparativo
+- Estatística
+- R
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_internal: "/feeds/7525839575016029613/posts/default/1807361975694272356"
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: "{:br}R vs SQL{:}{:en}SQL{:}"
+  _yoast_wpseo_metadesc: "{:br}R vs SQL. Um guia rápido para que usuários de SQL consigam
+    trabalhar de forma fácil com R{:}{:en}A rapid tutorial for SQL users who want
+    start to use R language {:}"
+  _yoast_wpseo_linkdex: '59'
+  _yoast_wpseo_title: "{:en}R for SQL Users a simple guide{:}"
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wp_old_slug: r-para-usuario-de-sql
+  cta_content_placement: below
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+  _wpcom_is_markdown: '1'
+  _yoast_wpseo_focuskw_text_input: "{:br}R vs SQL{:}{:en}SQL{:}"
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<p>{:br}</p>
+<div dir="ltr" style="text-align: left;">
+<p>[caption id="attachment_102" align="aligncenter" width="223"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/09/R_logo.png"><img class="size-full wp-image-102" src="{{ site.baseurl }}/assets/R_logo.png" alt="R logo" width="223" height="168" /></a> R logo[/caption]</p>
+<h2>Iniciando</h2>
+<p>Quando comecei a utilizar o R o maior problema foi a adaptação devido ao fato de já utilizar SQL com bancos relacionais, imediatamente surgiam as dúvidas:</p>
+<ol>
+<li>Como faço um "where" ?</li>
+<li>Tem como fazer um "like" ?</li>
+<li>Como faço um "group by"</li>
+<li>Como faço para ordenar?</li>
+<li>Como faço um "limit"</li>
+</ol>
+</div>
+<p><!--more--></p>
+<div dir="ltr" style="text-align: left;">
+<h2>R vs SQL ?</h2>
+<p>Quase todos os recursos disponíveis do R para análise de dados estão disponíveis na maioria dos bancos de dados relacionais, então porque utilizar o R ?</p>
+<ol>
+<li>O R foi criado para análise e não para persistência, controle de transações, rede e outros. Desta forma o R responde com muito mais velocidade considerando o mesmo hardware utilizado no banco relacional.</li>
+<li>Possui uma infinidade de bibliotecas disponíveis gratuitamente em seu repositório.</li>
+<li>Existem um infinidade de gráficos disponíveis nativamente como pode ser visto na figura 1 e todos os outros que se possa imaginar disponíveis como bibliotecas em seu repositório central.</li>
+<li>O R foi criado para análise estatísticas, sendo assim, se você pretende fazer este tipo de análise, não há o que discutir.</li>
+</ol>
+</div>
+<p><!--more--></p>
+<p><!--more--></p>
+<p>[caption id="attachment_143" align="aligncenter" width="263"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/09/3d-load.png"><img class="size-medium wp-image-143" src="{{ site.baseurl }}/assets/3d-load-263x300.png" alt="Gráfico 3d no R" width="263" height="300" /></a> Fig. 1[/caption]</p>
+<h2>Comparando de forma prática:</h2>
+<p>Vamos utilizar alguns exemplos simples para nos familiarizarmos com a forma de consulta do R.</p>
+<div dir="ltr" style="text-align: left;">
+<p>Para nossos exemplos vamos utilizar o seguinte <a href="http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/datasets-package.html" target="_blank">dataset</a>:</p>
+<pre class="lang:r decode:true" title="DataSet airquality">&gt; library('datasets')
+> head(airquality)
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6</pre>
+<h3>Filtrando</h3>
+<p><span style="font-size: large;"><span style="font-size: small;"> É possível criar desde filtros simples como "where Ozone = 41" ate filtros mais complexos utilizando expressão regular.<br />
+</span></span></p>
+<h3><span style="font-size: large;"> Abaixo alguns exemplos práticos:<br />
+</span></h3>
+<table style="height: 463px;" width="100%">
+<thead>
+<tr>
+<th>Recurso</th>
+<th>SQL</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where</td>
+<td>... where month = 5</td>
+<td>airquality[airquality$Month == 5,]</td>
+</tr>
+<tr>
+<td>Like</td>
+<td>... where Ozone like '4%'</td>
+<td>airquality[grep('4.', airquality$Ozone),]</td>
+</tr>
+<tr>
+<td>Group by</td>
+<td>select count(*) from airquelity</p>
+<p>group by Month</td>
+<td>aggregate(airquality, by=list(airquality$Month), FUN=length)</td>
+</tr>
+<tr>
+<td>Ordenamento</td>
+<td>select * from airquelity</p>
+<p>order by Ozone</td>
+<td>airquality[order(airquality$Ozone),]</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>select * from airquelity</p>
+<p>limit 10</td>
+<td>head(airquality, 10)</td>
+</tr>
+</tbody>
+</table>
+<h2>E os JOINS ?</h2>
+<p>Quando trabalhamos com analise no R de forma interativa o ideal é que você providencie um dataframe reconfigurado e que contenha todas as dimensões/tabelas necessárias, mas ainda assim há situações onde se faz necessário mesclar dataframes, sendo um script de carga ou ate mesmo no modo interativo, pra isto podemos utilizar o comando <strong>merge</strong>.</p>
+<pre class="lang:r decode:true">&gt;merge(frameA, frameB, by='ID')</pre>
+</div>
+<h2>Comando utilizados neste post:</h2>
+<ul>
+<li><strong>library </strong>Carrega uma biblioteca informada como parâmetro</li>
+<li><strong>head     </strong>Exibe apenas os primeiros registros de um DataFrame</li>
+<li><strong>grep      </strong>Filtra registros de um DataFrame com base em expressão regular</li>
+<li><strong>aggregate </strong>Agrupa registros considerando um campo agregador e uma função aplicada a coluna de "valor"</li>
+<li><strong>order    </strong>Ordena os registros informados</li>
+</ul>
+<p>Site oficial: <a href="https://www.r-project.org/" target="_blank">R</a>{:}{:en}</p>
+<div dir="ltr">
+<p>[caption id="attachment_102" align="aligncenter" width="223"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/09/R_logo.png"><img class="size-full wp-image-102" src="{{ site.baseurl }}/assets/R_logo.png" alt="R logo" width="223" height="168" /></a> R logo[/caption]</p>
+<h2>Starting</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">When</span> <span class="hps">I started using</span> <span class="hps">R</span> <span class="hps">the biggest problem</span> <span class="hps">was adapting</span> <span class="hps">due to the fact</span> <span class="hps">already</span> <span class="hps">using</span> <span class="hps">SQL</span> <span class="hps">with</span> <span class="hps">relational databases</span>, <span class="hps">immediately</span> <span class="hps">arose</span> <span class="hps">doubts</span><span class="">:</span><br />
+</span></p>
+<ol>
+<li><span id="result_box" class="" lang="en"><span class="hps">How to</span> <span class="hps">do a</span> <span class="hps">"where"</span><span class="">?</span></span></li>
+<li><span id="result_box" class="" lang="en"><span class="">It is to</span> <span class="hps">make a</span> <span class="hps">"like"</span><span class="">?</span></span></li>
+<li><span id="result_box" class="" lang="en"><span class="hps">How to</span> <span class="hps">make a</span> <span class="hps atn">"</span><span class="">group by</span>"?</span></li>
+<li><span id="result_box" class="" lang="en"> <span class="hps">How do I</span> <span class="hps">order</span>?</span></li>
+<li><span id="result_box" class="" lang="en"> <span class="hps">How to</span> <span class="hps">make a</span> <span class="hps atn">"</span><span class="">limit"?</span><br />
+</span></li>
+</ol>
+<h2>R vs SQL ?</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">Almost</span> <span class="hps">all available resources</span> <span class="hps">of</span> <span class="hps">R</span> <span class="hps">for data analysis</span> <span class="hps">are available</span> <span class="hps">in most</span> <span class="hps">relational databases</span>, so why <span class="hps">use the</span> <span class="hps">R</span>?<br />
+</span></p>
+<ol>
+<li><span id="result_box" class="" lang="en"> The <span class="hps">R</span> <span class="hps">was created</span> <span class="hps">for analysis</span> <span class="hps">and not</span> <span class="hps">for persistence</span>, <span class="hps">transaction management</span>, <span class="hps">network</span> <span class="hps">and others.</span> <span class="hps">Thus</span> <span class="hps">the</span> <span class="hps">R</span> <span class="hps">responds with</span> <span class="hps">much more</span> <span class="hps">speed</span> <span class="hps">considering the same</span> <span class="hps">hardware</span> <span class="hps">used in the</span> <span class="hps">relational database.</span></span></li>
+<li><span id="result_box" class="" lang="en"><span class="hps"> It has</span> <span class="hps">a plethora of</span> <span class="hps">freely available</span> <span class="hps">libraries</span> <span class="hps">in your repository</span>.</span></li>
+<li><span id="result_box" class="" lang="en"> <span class="hps">There are</span> <span class="hps">an infinity</span> <span class="hps">natively</span> <span class="hps">available</span> <span class="hps">graphics</span> <span class="hps">as seen</span> <span class="hps">in Figure 1 and</span> <span class="hps">all the other</span> <span class="hps">imaginable</span> <span class="hps">available as</span> <span class="hps">libraries</span> <span class="hps">in</span> <span class="hps">its central repository</span>.</span></li>
+<li><span id="result_box" class="" lang="en"> The <span class="hps">R</span> <span class="hps">was created to</span> <span class="hps">analysis</span> <span class="hps">statistics</span>, so <span class="hps">if you plan to</span> <span class="hps">do this kind of</span> <span class="hps">analysis</span>, <span class="hps">there is nothing to</span> <span class="hps">discuss</span>.</span></li>
+</ol>
+</div>
+<p>[caption id="attachment_143" align="aligncenter" width="263"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2015/09/3d-load.png"><img class="size-medium wp-image-143" src="{{ site.baseurl }}/assets/3d-load-263x300.png" alt="Gráfico 3d no R" width="263" height="300" /></a> Fig. 1[/caption]</p>
+<h2><span id="result_box" class="" lang="en"><span class="hps">Comparing</span> <span class="hps">in a practical way</span>:</span></h2>
+<p><span id="result_box" class="" lang="en"> </span><span id="result_box" class="" lang="en"><span class="hps">Let's</span></span><span id="result_box" class="" lang="en"> <span class="hps">use some</span> <span class="hps">simple</span> <span class="hps">examples to</span> <span class="hps">become familiar</span> <span class="hps">with</span> <span class="hps">the form of</span> <span class="hps">consulting the</span> <span class="hps">R.</span></span></p>
+<p><span class="hps">For our</span> <span class="hps">example</span> <span class="hps">we will use</span> <span class="hps">the following</span> <a href="http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/datasets-package.html" target="_blank"><span class="hps">dataset</span></a><span class="">:</span></p>
+<p>&nbsp;</p>
+<div dir="ltr" style="text-align: left;">
+<pre class="lang:r decode:true" title="DataSet airquality">&gt; library('datasets')
+> head(airquality)
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6</pre>
+</div>
+<h2><span id="result_box" class="" lang="en"><span class="hps">Filtering</span></span></h2>
+<p><span id="result_box" class="" lang="en">  <span class="hps">You can create</span> <span class="hps">from simple</span> <span class="hps">filters such as</span> <span class="hps">"where</span> <span class="hps">Ozone</span> <span class="hps">= 41</span>" <span class="hps">even</span> <span class="hps">more</span> <span class="hps">complex filters</span> <span class="hps">using</span> <span class="hps">regular expression.</span></span></p>
+<h2><span id="result_box" class="" lang="en"><br />
+<span class="hps">Below are some</span> <span class="hps">practical examples</span>:</span></h2>
+<div dir="ltr" style="text-align: left;">
+<table style="height: 463px;" width="100%">
+<thead>
+<tr>
+<th>Recurso</th>
+<th>SQL</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where</td>
+<td>... where month = 5</td>
+<td>airquality[airquality$Month == 5,]</td>
+</tr>
+<tr>
+<td>Like</td>
+<td>... where Ozone like '4%'</td>
+<td>airquality[grep('4.', airquality$Ozone),]</td>
+</tr>
+<tr>
+<td>Group by</td>
+<td>select count(*) from airquelity</p>
+<p>group by Month</td>
+<td>aggregate(airquality, by=list(airquality$Month), FUN=length)</td>
+</tr>
+<tr>
+<td>Ordenamento</td>
+<td>select * from airquelity</p>
+<p>order by Ozone</td>
+<td>airquality[order(airquality$Ozone),]</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>select * from airquelity</p>
+<p>limit 10</td>
+<td>head(airquality, 10)</td>
+</tr>
+</tbody>
+</table>
+<h2>And the JOINS ?</h2>
+<p><span id="result_box" class="" lang="en"><span class="hps">When we work with</span> <span class="hps">analysis</span> <span class="hps">in</span> <span class="hps">R</span> <span class="hps">interactively</span> <span class="hps">ideally</span> <span class="hps">you</span> <span class="hps">arrange for a</span> p<span class="hps">reconfigured</span> <span class="hps">dataframe</span>, containing all <span class="hps">the dimensions</span> <span class="hps">/</span> <span class="hps">required tables</span>, but still <span class="hps">there are situations</span> <span class="hps">where</span> <span class="hps">it is necessary to</span> <span class="hps">merge</span> <span class="hps">data frames</span>, in <span class="hps">a load</span> <span class="hps">script</span> <span class="hps">or even</span> in <span class="hps">the </span><span class="hps">interactive way </span>, <span class="hps">for</span> <span class="hps">this we can</span> <span class="hps">use the</span> <span class="hps">merge command</span><span class="">.</span></span></p>
+<pre class="lang:r decode:true">&gt;merge(frameA, frameB, by='ID')</pre>
+</div>
+<h2>Commands used in this post:</h2>
+<ul>
+<li><strong>library </strong>load a external library</li>
+<li><strong>head     </strong>Show firsts rows of a DataFrame</li>
+<li><strong>grep      </strong>Filter rows in DataFrame using regular expression</li>
+<li><strong>aggregate </strong>Aggregate rows in using a function to merge values ( Sum, Length ... )</li>
+<li><strong>order    </strong>Sort rows</li>
+</ul>
+<p>Official Site: <a href="https://www.r-project.org/" target="_blank">R</a>{:}</p>

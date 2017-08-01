@@ -1,0 +1,34 @@
+---
+layout: post
+title: Dados aleatórios e busca inteligente
+date: 2012-12-14 01:23:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Código
+- Dicas
+- SQL Server
+- Utilidades
+tags:
+- Banco
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2012/12/dados-aleatorios-e-busca-inteligente.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/7956614446647915520"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left">
+<div style="clear: both;text-align: center"><a href="http://2.bp.blogspot.com/-7gXCzd6bAxM/UKZzKNQf2tI/AAAAAAAABLo/-eA55HqiKuQ/s1600/sqlserver_sql_server_2008_logo.png" style="clear: left;float: left;margin-bottom: 1em;margin-right: 1em"><img border="0" height="164" src="{{ site.baseurl }}/assets/sqlserver_sql_server_2008_logo.png" width="200" /></a></div>
+<p>Por melhor que seja sua rotina de busca, ainda assim vai existir um usuário que não consiga encontrar o que esta procurando, por isso criei a rotina abaixo para fazer algo parecido com a busca do google.<br />Para testar utilizei também uma rotina para gerar dados aleatórios que pode ser muito boa para testar procedimentos.</p>
+<p><a href="http://edgardleal.blogspot.com.br/2012/12/funcao-split-no-sql-server.html" target="_blank">ATENÇÃO!! Veja a função SPLIT aqui</a>
+<pre>--Criação dos dados<br />set nocount on --não exibe número de comandos executados ( xx registros inclusos )<br />create table #endereco(codigo int primary key, rua varchar(250), bairro varchar(100))<br />go<br />create table #cliente (codigo int , nome varchar(100), telefone varchar(15), endereco int)<br />go<br />create table #nomes(codigo int , nome varchar(20)) <br />go<br />insert into #nomes(codigo, nome) values<br />(1, 'Maria'),<br />(2, 'João'),<br />(3, 'Abelardo'),<br />(4, 'Antonio'),<br />(5, 'Joaquina'),<br />(6, 'Laura'),<br />(7, 'Elizete'),<br />(8, 'Abgail'),<br />(9, 'Antonieta'),<br />(10, 'Lucia'),<br />(11, 'Megan'),<br />(12, 'Dorizete'),<br />(13, 'Zumira'),<br />(14, 'Gorete'),<br />(15, 'Josefa'),<br />(16, 'Joana'),<br />(17, 'Sonia'),<br />(18, 'Marcos'),<br />(19, 'Mauro'),<br />(20, 'Bruno'),<br />(21, 'Bruna'),<br />(22, 'Benedita')<br />go<br /><br />insert into #endereco(codigo , rua , bairro) values<br />(1, 'Rua 10', 'Centro'),<br />(2, 'Rua 11', 'Bairro novo'),<br />(3, 'Rua 12', 'Zona leste'),<br />(4, 'Rua 13', 'Zona sul'),<br />(5, 'Rua 14', 'Zona norte'),<br />(6, 'Rua 15', 'Zona oeste'),<br />(7, 'Rua 16', 'Faroeste'),<br />(8, 'Rua 17', 'Itaguaçu do norte'),<br />(9, 'Rua 18', 'Itapeciribecaba'),<br />(10, 'Rua 19', 'Itamonhangabaçu do norte')<br />go<br /><br />--Fim da criação dos dados<br /><br /><br />declare @i int = 1<br />declare @nome1 varchar(100)<br />declare @nome2 varchar(100)<br />declare @telefone varchar(8)<br />while @i &lt; 200<br />begin<br />  select @nome1 = nome from #nomes where codigo = ROUND(RAND() * 23,0)<br />  select @nome2 = nome from #nomes where codigo = ROUND(RAND() * 23,0 )<br />  set @telefone = CAST(ROUND(rand() * 999999, 0) as varchar(8))<br />  Select @telefone = '33' + REPLICATE('0', 6 - LEN(@telefone)) + @telefone <br />  insert into #cliente(codigo, nome, telefone, endereco) values(@i, @nome1 + char(32) + @nome2, @telefone, ROUND(RAND() * 11,0))<br />  set @i = @i + 1<br />end-- Gera os dados de clientes<br /><br /> <br />declare @texto varchar(500) = '  abgail centro rua 10'<br /><br />set @texto = rtrim(ltrim(@texto))-- remove os espaços das estrimidades esquerda e direita<br />set @texto = replace(@texto, '  ', ' ') -- Remove os espaços repetidos (duplos)<br />declare @termoGeral varchar(8000) = '%' + replace(@texto, ' ', '%') + '%'<br /><br />--Cursor usando a função SPLIT criada em outro post para dividir o texto<br />--procurado em uma lista de palavras para que seja montado um critério<br />--de busca para cada parte do texto separadamente.<br />declare palavras cursor for select palavra from fn_split(@texto)<br />declare @termo varchar(100)<br />declare @condicao varchar(8000) = ' and ( 1 &lt;&gt; 1 '<br /><br />open palavras <br />  fetch palavras into @termo<br />  while @@FETCH_STATUS = 0<br />  begin<br />    set @condicao = @condicao + ' or c.nome like ''%' + @termo + '%'' or e.rua like ''%' + @termo + '%''' <br />    fetch palavras into @termo<br />  end<br />  <br />close palavras<br />deallocate palavras<br /><br />exec('Select c.codigo , c.nome, c.telefone, e.rua + '', '' + e.bairro [Endereço] from #cliente c, #endereco e where c.endereco = e.codigo ' + @condicao + ')')<br /> <br /> <br />drop table #cliente<br />drop table #endereco <br />drop table #nomes <br />set nocount off<br /><br /><br /><br /></pre>
+<p></div>

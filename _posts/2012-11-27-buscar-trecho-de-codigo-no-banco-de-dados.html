@@ -1,0 +1,62 @@
+---
+layout: post
+title: Buscar trecho de código no banco de dados
+date: 2012-11-27 19:50:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- SQL Server
+- Utilidades
+tags:
+- Banco
+- SQL
+- SQL Server
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2012/11/buscar-trecho-de-codigo-no-banco-de.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/2733535938366717082"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw: código no banco
+  _yoast_wpseo_metadesc: Sabe quando você precisa saber qual Stored Procedure ou Trigger
+    do banco esta gerando ou alterando uma certa tabela? Veja como descobrir neste
+    post
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+  _wpcom_is_markdown: '1'
+  _yoast_wpseo_linkdex: '52'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"></div>
+<div style="clear: both; text-align: center;">
+<p>[caption id="attachment_178" align="aligncenter" width="300"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2012/11/sqlserver_sql_server_2008_logo.png"><img class="wp-image-178 size-medium" src="{{ site.baseurl }}/assets/sqlserver_sql_server_2008_logo-300x247.png" alt="SQL Server" width="300" height="247" /></a> SQL Server[/caption]</p>
+</div>
+<h2>O problema</h2>
+<p>A utilização de regras de negocio dentro do banco de dados pode ser um problema para os desenvolvedores quando começam a surgir novos registros ou alterações de registros que não são originados da aplicação, caso você tenha em mãos a documentação do banco de dados, este será o caminho a seguir, mas nem sempre dispomos destas documentações, neste caso teremos que "vasculhar" o banco de dados em busca destas informações.</p>
+</div>
+<h2>A Solução</h2>
+<div dir="ltr" style="text-align: left;">
+<p>No <strong>SQL Server</strong> é possível consultar diretamente a tabela de comentários ( <strong><span style="color: #38761d;">Syscomments</span></strong> ) do banco de dados onde estão dos os comentários de todos os objetos do banco, sendo assim podemos utilizar o código abaixo para realizar esta investigação.</p>
+<div></div>
+<div>
+<pre class="lang:mysql decode:true">declare @texto varchar(255) = '%CodCliente=%'
+  Select top 100 o.name, --Nome do objeto
+                 c.text  --Código fonte correspondente ao objeto
+   from Syscomments c 
+       Inner Join Sysobjects o 
+         On o.id = c.id
+  Where c.text like @texto
+</pre>
+</div>
+</div>
+<p>Veja a documentação sobre a tabela <em>Syscomments</em> neste <a href="https://msdn.microsoft.com/en-us/library/ms186293.aspx" target="_blank">link</a>.</p>

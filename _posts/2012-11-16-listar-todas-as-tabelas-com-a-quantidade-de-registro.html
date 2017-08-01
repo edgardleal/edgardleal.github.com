@@ -1,0 +1,72 @@
+---
+layout: post
+title: SQL Server - Registros por tabela
+date: 2012-11-16 17:20:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Código
+- SQL Server
+- Utilidades
+tags:
+- Banco
+- Dados
+- Dicas
+- SQL
+- SQL Server
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2012/11/listar-todas-as-tabelas-com-quantidade.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/328195710421750409"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw: SQL Server
+  _yoast_wpseo_metadesc: Faça uma analise rápida de como esta o armazenamento de dados
+    do seu banco SQL Server
+  _wpcom_is_markdown: '1'
+  _yoast_wpseo_linkdex: '83'
+  _publicize_twitter_user: "@EdgardLeal"
+  _wpas_skip_12598293: '1'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2012/11/sqlserver_sql_server_2008_logo.png"><img class="alignnone size-medium wp-image-178" src="{{ site.baseurl }}/assets/sqlserver_sql_server_2008_logo-300x247.png" alt="SQL Server" width="300" height="247" /></a></div>
+<div style="clear: both; text-align: center;"></div>
+<h2>Como esta seu banco no SQL Server ?</h2>
+<p>Seja para detectar um problema de excesso de uso de disco ou mesmo para monitoração dinâmica do SQL Serve, é importante saber como cada tabela do banco esta se comportando e se estão crescendo como esperado. Uma outra situações pela qual costumo passar é quando preciso otimizar consultas e preciso saber a cardinalidade das tabelas envolvidas para decidir qual índices priorizar na junções condições e ordenamento. Para isso criei a rotina abaixo que lista todas as tabelas do banco de dados e sua respectiva cardinalidade ( Quantidade de registros ), este código pode ser incluso em uma Stored Procedure e utilizado para verificar periodicamente o comportamento dos dados no banco, isso pode evitar que sua aplicação pare de funcionar ou fique lenta de mais por causa de alguma rotina com erro.</p>
+</div>
+</div>
+<pre class="lang:plsql decode:true">declare cur cursor for 
+  Select name from sysobjects where xtype = 'U' order by name;
+
+declare @name varchar(60)
+declare @qtd varchar(15)
+declare @sql Nvarchar(4000)
+create table #temp(Tabela varchar(60) ,total int)
+
+open cur;
+fetch cur into @name
+
+while @@FETCH_STATUS = 0
+begin
+   print @name;
+   set @sql = N'insert into #temp select ''' +
+   @name + ''' as Tabela, count(*) as total from ' + @name
+   exec( @sql)
+   fetch cur into @name;
+end
+
+select * from #temp order by tabela
+drop table #temp
+close cur;
+deallocate cur;</pre>
+<p>Para mais informações sobre Stored Procedures e sintaxe do SQL Server visite a documentação oficial da MicroSoft <a href="https://msdn.microsoft.com/en-us/library/ms345415.aspx" target="_blank">aqui</a>.</p>

@@ -1,0 +1,95 @@
+---
+layout: post
+title: Ferramentas para o Shell
+date: 2014-07-30 17:53:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- linux
+- Utilidades
+tags:
+- Dicas
+- Linux
+- Shell
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2014/07/ferramentas-para-o-shell.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/5017191962101267051"
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _thumbnail_id: '80'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Shell
+  _yoast_wpseo_metadesc: Neste post apresento alguns de meus scripts favoritos para
+    turbinar o Shell e agilizar o trabalho no dia a dia
+  _yoast_wpseo_linkdex: '81'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<p><a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2013/05/linux.jpg"><img class="alignnone size-medium wp-image-80" src="{{ site.baseurl }}/assets/linux-232x300.jpg" alt="linux" width="232" height="300" /></a></p>
+<h2>Introdução</h2>
+<p>Muitas vezes no dia precisamos criar uma pasta e em seguida entrar nesta pasta para realização de algum procedimento dentro desta, que seria algo como:</p>
+<pre class="lang:sh decode:true ">-&gt; mkdir pasta
+-&gt; cd pasta</pre>
+</div>
+<p>&nbsp;</p>
+<h2>Utilizando funções</h2>
+<div dir="ltr" style="text-align: left;">
+<p>É possível criar funções( comandos ) personalizados modificando o arquivo ~/.bashrc ( ou ~/.profile se for mac ) que é o arquivo com código Shell que é executando quando é iniciada uma nova instância do terminal, desta forma, toda vez que você abrir o terminal, ou logar no servidor este arquivo será executado a as funções contidas nele ficarão disponíveis.</p>
+<p>Para isso adicione as seguinte linhas neste arquivo:</p>
+<pre class="lang:sh decode:true" title="Comando mkcd"> function mkcd
+ {
+   local final_dir=""
+   for i in $@
+   do
+     [ ! -d "$i" ] &amp;&amp; mkdir -pv "$i"
+     final_dir="$i"
+   done
+   cd "$final_dir"
+ }
+
+</pre>
+<p>Uso:</p>
+<pre class="lang:default decode:true ">-&gt; pwd
+/Users/edgardleal/tmp
+-&gt; mkcd nova/pasta pasta_final
+-&gt; pwd
+/Users/edgardleal/tmp/pasta_final</pre>
+<p>No final você estará na pasta "pasta_final".</p>
+<p>OBS: nesta função foi utilizado o parâmetro -p do comando mkdir que cria toda a raiz de pasta quando a pasta "pai" não existir.</p>
+<p>Ex.:</p>
+<pre class="lang:sh decode:true">mkdir -p a/b/c/d/e/f  #caso estas pastas não existam , todas serão criadas.
+
+# Mesmo que a pasta "a" não exista, toda esta estrutura será criada
+.
+└── a
+    └── b
+        └── c
+            └── d
+                └── e
+                    └── f
+
+</pre>
+</div>
+<p>&nbsp;</p>
+<h2>Utilizando alias</h2>
+<p>Em algumas situações o recurso que desejamos implementar é tão simples que não precisamos criar um função Shell, neste caso podemos criar apenas um alias para um determinado comando. Uma situação comum para utilização deste recurso é com comando onde costuma-se repetir sempre os mesmos parâmetros. Veja alguns exemplos:</p>
+<h3>Listando os maiores arquivos de uma pasta</h3>
+<p>Existem situações onde é preciso liberar espaço em disco rapidamente para que ou seu serviço não pare por falta de espaço no HD ou simplesmente para fazer uma limpeza.</p>
+<pre class="lang:sh decode:true " title="Os 5 maiores arquivos"># Este comando lista os 5 maiores arquivos na pasta atual
+alias findbig='find . -type f -exec ls -s {} \; | sort -n -r | head -5'</pre>
+<h3>Listando arquivos</h3>
+<p>Já se perguntou quantas vezes por dia você executa o comando ls ?</p>
+<p>Abaixo segue alguns exemplos de como enriuecer seu arquivo .bashrc/.profile:</p>
+<pre class="lang:sh decode:true " title="LS">alias ll='ls -alF'  # Todos os arquivos formato lista classificados
+alias la='ls -A'    # Todos os arquivos exceto . e ..
+alias l='ls -CF'    # Lista os arquivos em colunas</pre>
+<p>Você encontra estes e outros exemplos no arquivo completo <a href="https://gist.github.com/edgardleal/577de25b9b3f11285b26" target="_blank">aqui</a>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

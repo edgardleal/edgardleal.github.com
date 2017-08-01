@@ -1,0 +1,35 @@
+---
+layout: post
+title: Localizar um objeto em todos os bancos de dados
+date: 2012-12-19 21:03:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Dicas
+- SQL
+- SQL Server
+- Utilidades
+tags:
+- Banco
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2012/12/localizar-um-objeto-em-todos-os-bancos.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/5732585006117998160"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left">
+<div style="clear: both;text-align: center"><a href="http://2.bp.blogspot.com/-7gXCzd6bAxM/UKZzKNQf2tI/AAAAAAAABLo/-eA55HqiKuQ/s1600/sqlserver_sql_server_2008_logo.png" style="margin-left: 1em;margin-right: 1em"><img alt="SQL Server localizar objeto tabela view procedure trigger em todos os bancos de dados do servidor" border="0" height="164" src="{{ site.baseurl }}/assets/sqlserver_sql_server_2008_logo.png" title="SQL Server logomarca" width="200" /></a></div>
+<div style="clear: both;text-align: center"></div>
+<p>Algumas ferramentas para banco de dados possuem uma busca para objetos(tabelas, triggers, views, etc) no banco de dados, para o caso de não ter disponível ou como no meu caso, de precisar fazer de forma dinâmica dentro de uma aplicação, pode-se utilizar o código abaixo:</p>
+<p>
+<pre>declare @table table(database_name varchar(80), <br />  database_size int, remarks varchar(100))<br />insert into @table exec sp_databases <br /><br /><br />create table #database (database_name varchar(80))<br />declare _database cursor for Select * from @table <br />declare @database varchar(100)<br />declare @database_size int <br />declare @remarks varchar(100)<br />open _database<br />  fetch _database into @database , @database_size , @remarks<br />  declare @sql varchar(2000)<br />  while @@fetch_status = 0<br />  begin<br />    set @sql = 'use ' + @database + ' if exists (Select top 1 1 from '<br />    set @sql = @sql + ' sysobjects where name = ''fn_media'') insert '<br />    set @sql = @sql + ' into #database select ''' + @database + ''''<br />    exec( @sql )<br />    fetch _database into @database , @database_size , @remarks<br />  end<br /><br />close _database<br />deallocate _database<br /><br />Select * from #database order by database_name<br />drop table #database<br /><br /></pre>
+</div>

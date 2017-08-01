@@ -1,0 +1,64 @@
+---
+layout: post
+title: Derby - utilizando auto incremento
+date: 2013-11-17 23:26:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- banco
+- Código
+- Derby
+- Dicas
+- Java
+- Utilidades
+tags:
+- Banco
+- Java
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/11/auto-incremento-no-banco-de-dados-derby.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/7399587482812495593"
+  _thumbnail_id: '51'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Derby
+  _yoast_wpseo_metadesc: Utilizando o banco de dados embarcado Derby no Java com auto
+    incremento para facilitar a distribuição de suas aplicações.
+  _yoast_wpseo_linkdex: '80'
+  _wp_old_slug: auto-incremento-no-derby-javadb
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"></div>
+<div style="clear: both;">
+<p>[caption id="" align="alignnone" width="64"]<a style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;" href="http://edgardleal.com/wp-content/uploads/sites/3/2013/11/final_logo64.png"><img src="{{ site.baseurl }}/assets/final_logo64.png" alt="Derby embed java database" width="64" height="50" border="0" /></a> Derby[/caption]</p>
+</div>
+<h2 style="clear: both;">O Derby</h2>
+<p>O Derby é um sistema de banco de dados relacional embarcado no java, isto significa que você não precisa ter um serviço a mais sendo executado na sua maquina para fazer uso do sistema de banco de dados, todo o código é executado na mesma JVM de sua aplicação.</p>
+<h2>Alguns motivos para utilizar o Derby</h2>
+<ul>
+<li>Rápida instalação e ouço consumo de recursos 2.6MB por instância já considerando o driver.</li>
+<li>Baseado em Java, JDBC, e <a class="external" href="http://wiki.apache.org/db-derby/SQLvsDerbyFeatures">SQL</a> padrão.</li>
+<li>Possibilidade de utilização no modo cliente servidor.</li>
+<li>Facilidade de instalar e usar.</li>
+</ul>
+<h2>Criando a tabela com auto-incremento</h2>
+<p>O auto incremento no derby é um pouco diferente do padrão dos outros banco de dados.<br />
+Segue um exemplo que pode ajudar a criar as tabelas de seu novo banco.</p>
+<pre class="lang:mysql decode:true">CREATE TABLE students
+ (
+   id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+   name VARCHAR(24) NOT NULL,
+   address VARCHAR(1024),
+   CONSTRAINT primary_key PRIMARY KEY (id)
+ );</pre>
+</div>
+<p><a href="https://db.apache.org/derby/" target="_blank">Link para o site oficial.</a></p>

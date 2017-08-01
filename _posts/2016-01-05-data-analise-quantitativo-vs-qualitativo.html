@@ -1,0 +1,80 @@
+---
+layout: post
+title: "{:br}Quantitativo vs Qualitativo{:}{:en}Quantitative vs Qualitative{:}"
+date: 2016-01-05 07:34:52.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- R
+tags:
+- Dados
+- Data
+- Data Analysis
+- R
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: Quantitativo vs Qualitativo
+  _yoast_wpseo_focuskw: Quantitativo vs Qualitativo
+  _yoast_wpseo_metadesc: Quantitativo vs Qualitativo. Neste post iremos ver as principais
+    diferenças entre estes dois tipos de dados e em que esta diferença pode nos ajudar.
+  _yoast_wpseo_linkdex: '86'
+  _publicize_twitter_user: "@EdgardLeal"
+  _wpas_done_all: '1'
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>{:br}</p>
+<h2>Quantitativo vs Qualitativo</h2>
+<p><a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2016/01/measuring.jpg" rel="attachment wp-att-268"><img class="alignleft wp-image-268" src="{{ site.baseurl }}/assets/measuring-150x150.jpg" alt="Quantitativo vs Qualitativo" width="143" height="143" /></a>Em analises de dados precisamos conseguir distinguir os tipos de informações das quais dispomos para que possamos aplicar de forma apropriada as diferentes ferramentas de análise. Neste post iremos ver de forma prática as principais diferenças entre estes dois tipos de dados e em que esta diferença pode nos ajudar.</p>
+<p><!--more--></p>
+<h2>Exemplo:</h2>
+<p>Para nosso exemplo utilizaremos o Dataset <a href="http://blog.edgardleal.com/2016/01/04/r-datasets-chickwts/">chickwts</a> disponibilizado com a instalação padrão do R. Este Dataset é composto de exatamente duas colunas, cada uma de um dos tipos de dados que precisamos analisar. A primeira coluna ( weight ) representa um tipo de valor <strong>Quantitativo </strong>e a segunda coluna ( feed ) representa o tipo de alimento utilizado e é um tipo de informação <strong>Qualitativa.</strong></p>
+<pre class="lang:r decode:true " title="Sample">&gt; chickwts[sample(1:70, size = 10),]
+   weight      feed
+68    216    casein
+55    263  meatmeal
+57    206  meatmeal
+4     227 horsebean
+7     108 horsebean
+52    315  meatmeal
+70    283    casein
+67    359    casein
+32    267   soybean
+5     217 horsebean</pre>
+<h2>Tipos de dados Quantitativos</h2>
+<p>Normalmente são tipos de dados que podem ser medidos, são lineares e possivelmente de possibilidades infinitas. Utilizei estes termos porque não basta dizer apenas que são números visto que é possível utilizar números como informações não <strong>Quantitativas </strong>como por exemplo ao utilizar números para identificar grupos ou categorias dos registros. De forma simples podemos entender os dados Quantitativos como colunas dos nossos Datasets que são passíveis de operações matemáticas, como média, soma e contagem. Em nosso Dataset exemplo <a href="http://blog.edgardleal.com/2016/01/04/r-datasets-chickwts/">chickwts</a> a coluna <strong>weight </strong>contem valores Quantitativos que representam os pesos dos frangos, estes valores podem ser somados, pode-se extrair o valore médio, máximo, mínimo dentre muitas outras operações matemáticas.</p>
+<h2>Tipos de dados Qualitativos</h2>
+<p>São informações que normalmente são representadas por texto e em alguns casos podem também ser representados por números mas nestes casos são utilizadas faixas limitadas de números para de alguma forma categorizar a informação. Em nosso Dataset exemplo a coluna <strong>feed</strong> contem informações do tipo<strong> Qualitativa</strong> que são os nomes dos tipos de alimentos utilizados na alimentação dos frangos.</p>
+<h2>Referências:</h2>
+<p><a href="https://en.m.wikibooks.org/wiki/Statistics/Different_Types_of_Data/Quantitative_and_Qualitative_Data" target="_blank">https://en.m.wikibooks.org/wiki/Statistics/Different_Types_of_Data/Quantitative_and_Qualitative_Data</a>{:}{:en}</p>
+<h2><span id="result_box" class="" lang="en"><span title="Quantitativo vs Qualitativo ">Quantitative vs Qualitative</span></span></h2>
+<p><img class="alignleft wp-image-268" src="{{ site.baseurl }}/assets/measuring-150x150.jpg" alt="Quantitativo vs Qualitativo" width="143" height="143" />Quantitative<span id="result_box" class="" lang="en"><span title="Quantitativo vs QualitativoEm analises de dados precisamos conseguir distinguir os tipos de informações das quais dispomos para que possamos aplicar de forma apropriada as diferentes ferramentas de análise."> vs Qualitative analysis of data need to be able to distinguish the types of information that we have so that we can appropriately apply the different analysis tools. </span><span title="Neste post iremos ver de forma prática as principais diferenças entre estes dois tipos de dados e em que esta diferença pode nos ajudar. ">In this post we will see in a practical way the main differences between these two types of data and that this difference may help us.</span></span></p>
+<p><!--more--></p>
+<h2>Example</h2>
+<p><span id="result_box" class="" lang="en"><span title="Para nosso exemplo utilizaremos o Dataset chickwts disponibilizado com a instalação padrão do R. Este Dataset é composto de exatamente duas colunas, cada uma de um dos tipos de dados que precisamos analisar.">For our example we will use the Dataset <a href="http://blog.edgardleal.com/2016/01/04/r-datasets-chickwts/">chickwts</a> available with the default installation of R. This Dataset consists of exactly two columns, each one of the types of data we need to analyze. </span><span title="A primeira coluna ( weight ) representa um tipo de valor Quantitativo e a segunda coluna ( feed ) representa o tipo de alimento utilizado e é um tipo de informação Qualitativa. ">The first column (weight) is a type of quantitative value and the second column (feed) is the type of food used and is a type of qualitative information.</span></span></p>
+<pre class="lang:r decode:true " title="Sample">&gt; chickwts[sample(1:70, size = 10),]
+   weight      feed
+68    216    casein
+55    263  meatmeal
+57    206  meatmeal
+4     227 horsebean
+7     108 horsebean
+52    315  meatmeal
+70    283    casein
+67    359    casein
+32    267   soybean
+5     217 horsebean</pre>
+<h2><span id="result_box" class="" lang="en"><span title="Tipos de dados Quantitativos      ">Quantitative data types</span></span></h2>
+<p><span id="result_box" class="" lang="en"><span title="Normalmente são tipos de dados que podem ser medidos, são lineares e possivelmente de possibilidades infinitas.">Usually data types are to be measured, they are linear and possibly infinite possibilities. </span><span title="Utilizei estes termos porque não basta dizer apenas que são números visto que é possível utilizar números como informações não Quantitativas como por exemplo ao utilizar números para identificar grupos ou categorias dos registros.">I used these terms because it is not enough to just say that numbers are since you can use numbers as no information Quantitative such as when using numbers to identify groups or categories of records. </span><span title="De forma simples podemos entender os dados Quantitativos como colunas dos nossos Datasets que são passíveis de operações matemáticas, como média, soma e contagem.">Simply can understand Quantitative data as columns of our datasets that are amenable to mathematical operations such as average, sum, and count. </span><span title="Em nosso Dataset exemplo chickwts a coluna weight contem valores Quantitativos que representam os pesos dos frangos, estes valores podem ser somados, pode-se extrair o valore médio, máximo, mínimo dentre muitas outras operações matemáticas. ">In our example Dataset chickwts the weight column contains Quantitative values ​​representing the weights of the chicken, these values ​​can be combined, can be extracted the average, maximum, minimum among and many other mathematical operations.</span></span></p>
+<h2><span id="result_box" class="" lang="en"><span title="Tipos de dados Qualitativos    ">Qualitative data types</span></span></h2>
+<p><span id="result_box" class="" lang="en"><span title="São informações que normalmente são representadas por texto e em alguns casos podem também ser representados por números mas nestes casos são utilizadas faixas limitadas de números para de alguma forma categorizar a informação.">Is information that are typically represented by text and in some cases can also be represented by numbers but in these cases are limited numbers of bands used in any way to categorize information. </span><span title="Em nosso Dataset exemplo a coluna feed contem informações do tipo Qualitativa que são os nomes dos tipos de alimentos utilizados na alimentação dos frangos. ">In our example the feed Dataset column contains qualitative type of information which are the names of the types of food used to feed the chickens.</span></span></p>
+<h2>References</h2>
+<p><a href="https://en.m.wikibooks.org/wiki/Statistics/Different_Types_of_Data/Quantitative_and_Qualitative_Data" target="_blank">https://en.m.wikibooks.org/wiki/Statistics/Different_Types_of_Data/Quantitative_and_Qualitative_Data</a>{:}</p>

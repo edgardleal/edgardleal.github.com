@@ -1,0 +1,141 @@
+---
+layout: post
+title: "{:br}Voltando a versão de um arquivo com o GIT{:}{:en}Back version of a single
+  file with the GIT{:}"
+date: 2013-01-30 14:10:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Dicas
+- Git
+- Utilidades
+tags:
+- Dicas
+- git
+- Tools
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/01/voltar-versao-de-um-unico-arquivo-no-git.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/7343726416890391929"
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw: "{:br}GIT{:}{:en}GIT{:}"
+  _yoast_wpseo_metadesc: "{:br}Use o GIT ao seu favor para voltar a versão de apenas
+    um arquivo no caso do seu cliente mudar de ideia sem precisar ficar criando arquivos
+    de backup{:}{:en}See simply how to recover changes made to a particular file using
+    the GIT and change your mind, come back all over again{:}"
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+  _wpcom_is_markdown: '1'
+  _yoast_wpseo_linkdex: '88'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<p>{:br}</p>
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-s-DCSmNe65M/UQkiU6f5bnI/AAAAAAAACEM/1d8PPO5oU1w/s1600/Git_icon.svg.png"><img class="alignnone" title="GIT Logo" src="{{ site.baseurl }}/assets/Git_icon.svg.png" alt="Git logo. Como restaurar apenas um arquivo no git, restor just one only file" width="200" height="200" border="0" /></a></div>
+</div>
+<div style="clear: both; text-align: center;"></div>
+<h2 style="clear: both; text-align: left;">O Problema</h2>
+<div dir="ltr">
+<p>    Uma dos maiores problemas que tenho no meu dia a dia, e com solicitações de usuários que mudam de ideia, e eu preciso voltar a versão de um arquivo apenas e não todo o projeto. A grande maioria dos programadores que conheci utilizam uma técnica horrível e que torna o código fonte cada dia mas difícil de ler que consiste em comentar o trecho de código anterior, e quando o clientes muda de ideia e pede para deixar o sistema como era anteriormente, eles removem as marcações de comentário do código anterior e "comentam" o código que tinha escrito. Isto faz com que você tenha quase o dobro de conteúdo em seu arquivo de código fonte.</p>
+<h3>Utilizando o GIT</h3>
+<p>Quando estamos utilizando um sistema de controle de versão não precisamos nos preocupar em voltar o código ao estado anterior. No nosso caso estamos utilizando o <strong>GIT</strong>, você pode utilizar o Id do commit, ou o nome de uma TAG pré definida.</p>
+<p>Para o nosso teste, vamos realizar os seguintes passos:</p>
+<ol>
+<li>Criar uma pasta "tmp"</li>
+<li>Dentro desta pasta, inicializar o repositório com o comando "git init"</li>
+<li>Alterar o conteúdo do arquivo</li>
+<li>Salvar esta alterações e criar uma TAG para identificação desta versão ( não é obrigatório )</li>
+<li>Alterar novamente o arquivo</li>
+<li>Salvar uma nova versão</li>
+<li>Voltar o arquivo para a versão anterior</li>
+</ol>
+<pre class="lang:sh decode:true" title="Inicializando o repositório">mkdir tmp
+cd tmp
+git init
+cat &gt; test.txt
+linha1
+linha2
+&lt;Ctrl+d Ctrl+d&gt;  # Precione a tecla control + d duas vezes
+git add .  # Adiciona todos arquivo ao repositório
+git commit -am "commit1"
+git tag -am "commit1" commit1</pre>
+<p>Neste ponto já temos nosso arquivo versionado e utilizamos uma TAG nomeada para facilitar a identificação de nossa versão.</p>
+<p>Agora vamos adicionar mas uma linha em nosso arquivo e criar uma nova versão:</p>
+<pre class="lang:sh decode:true" title="Alterando o repositório">echo "linha3" &gt;&gt; test.txt
+git commit -am "commit2"
+git tab -am "commit2" commit2</pre>
+<p>Agora temos duas versões diferentes, e vamos utilizar alguns comandos interessantes para analisarmos o nosso repositório:</p>
+<pre class="lang:sh decode:true " title="Verificando o repositório">git log --all --decorate --graph # Exibe o log para todas branches ( não utilizado no exemplo )
+git diff commit1 # Exibe a diferença entre o estado atual do repositório HEAD, e a TAG commit1
+</pre>
+</div>
+<div dir="ltr">
+<p>Agora vamos voltar o arquivo "test.txt" para a tag commit1:</p>
+<pre class="lang:default decode:true " title="Voltando a versão ">git checkout commit1 test.txt # commit1 é o nome da TAG que criamos 
+</pre>
+</div>
+<div dir="ltr"></div>
+<h2 dir="ltr">Referencias:</h2>
+<div dir="ltr">Documentação oficial sobre checkout: <a href="http://git-scm.com/docs/git-checkout" target="_blank">git-scm.com/docs/git-checkout</a></div>
+<div dir="ltr">Documentação oficial sobre TAGs: <a href="http://git-scm.com/book/en/v2/Git-Basics-Tagging" target="_blank">git-scm.com/book/en/v2/Git-Basics-Tagging</a></div>
+<p>{:}{:en}</p>
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-s-DCSmNe65M/UQkiU6f5bnI/AAAAAAAACEM/1d8PPO5oU1w/s1600/Git_icon.svg.png"><img class="alignnone" title="GIT Logo" src="{{ site.baseurl }}/assets/Git_icon.svg.png" alt="Git logo. Como restaurar apenas um arquivo no git, restor just one only file" width="200" height="200" border="0" /></a></div>
+</div>
+<div style="clear: both; text-align: center;"></div>
+<h2>The problem</h2>
+<p>One of the biggest problems I have in my day to day, and requests from users to change their minds, and I need to return the version of a file only and not the entire project. The vast majority of programmers who met using a horrible technique that makes the source code each day but difficult to read which is to review the previous code snippet, and when the customer changes his mind and asks to leave the system as it was before, they remove the comment tags from the previous code and "comments" the code he had written. This means that you have almost double the content in your source file.</p>
+<h2>Using GIT</h2>
+<p>When we are using a version control system we need not worry about returning the code to the previous state.   In our case we are using Git, you can use the commit of the Id, or the name of a predefined TAG.</p>
+<p>For our test, we perform the following steps:</p>
+<ol>
+<li>Create a folder "tmp"</li>
+<li>Inside this folder, initialize the repository with the command "git init"</li>
+<li>Change the file contents</li>
+<li>Save this change and create a tag for identification of this version (not required)</li>
+<li>Change the file again</li>
+<li>Save a new version</li>
+<li>Return the file to the previous version</li>
+</ol>
+<div dir="ltr">
+<pre class="lang:sh decode:true" title="Inicializando o repositório">mkdir tmp
+cd tmp
+git init
+cat &gt; test.txt
+linha1
+linha2
+&lt;Ctrl+d Ctrl+d&gt;  # Precione a tecla control + d duas vezes
+git add .  # Adiciona todos arquivo ao repositório
+git commit -am "commit1"
+git tag -am "commit1" commit1</pre>
+</div>
+<div dir="ltr"><span id="result_box" class="" lang="en"><span class="hps"> At this point</span> <span class="hps">we have</span> <span class="hps">our</span> <span class="hps">versioned file</span> <span class="hps">and use</span> <span class="hps">a tag</span> <span class="hps">named</span> <span class="hps">for easy identification</span> <span class="hps">of</span> <span class="hps">our version</span>.<br />
+<span class="hps">Now let's add</span> <span class="hps">a line</span> <span class="hps">but</span> <span class="hps">in</span> <span class="hps">our</span> <span class="hps">file and</span> <span class="hps">create a new version</span><span class="">:</span></span></p>
+<pre class="lang:sh decode:true" title="Alterando o repositório">echo "linha3" &gt;&gt; test.txt
+git commit -am "commit2"
+git tab -am "commit2" commit2</pre>
+<p><span id="result_box" class="" lang="en"><span class="hps">  Now we have two</span> <span class="hps">different versions</span>, <span class="hps">and</span> <span class="hps">will use</span> <span class="hps">some interesting</span> <span class="hps">commands to</span> <span class="hps">analyze</span> <span class="hps">our</span> <span class="hps">repository:</span></span></p>
+<pre class="lang:sh decode:true" title="Verificando o repositório">git log --all --decorate --graph # Show all branches ( we don't use branches here )
+git diff commit1 # Show difference between the current state HEAD, and the TAG commit1
+</pre>
+</div>
+<div dir="ltr">
+<p><span id="result_box" class="short_text" lang="en"><span class="hps">Now let's turn</span> <span class="hps atn">the file "</span>test.txt" <span class="hps">to</span> <span class="hps">commit1</span> <span class="hps">tag:</span></span></p>
+<pre class="lang:default decode:true" title="Voltando a versão ">git checkout commit1 test.txt # commit1 is the name of TAG created
+</pre>
+</div>
+<div dir="ltr"></div>
+<h2 dir="ltr">References:</h2>
+<div dir="ltr">Official documentation about the command checkout: <a href="http://git-scm.com/docs/git-checkout" target="_blank">git-scm.com/docs/git-checkout</a></div>
+<div dir="ltr">Official documentation about TAGs: <a href="http://git-scm.com/book/en/v2/Git-Basics-Tagging" target="_blank">git-scm.com/book/en/v2/Git-Basics-Tagging</a></div>
+<p>{:}</p>

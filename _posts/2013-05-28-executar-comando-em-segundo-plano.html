@@ -1,0 +1,34 @@
+---
+layout: post
+title: Executar comando em segundo plano
+date: 2013-05-28 19:19:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- linux
+- Shell Script
+tags: []
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/05/executar-comando-em-segundo-plano.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/6197493322939583913"
+  _thumbnail_id: '80'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left">
+<div style="clear: both;text-align: center"><a href="http://edgardleal.com/wp-content/uploads/sites/3/2013/05/linux.jpg" style="margin-left: 1em;margin-right: 1em"><img border="0" height="320" src="{{ site.baseurl }}/assets/linux-232x300.jpg" width="247" /></a></div>
+<p>Existem situações onde precisamos iniciar um processo manualmente em segundo plano, como por exemplo, inicializar um servidor web. O problema é que o processo fica preso na tela do console nos impossibilitando de utilizar a mesma sessão, e o pior: quando o acesso é remoto ( ssh ) , e você não pode fechar o terminal para não encerrar o processo.<br />Uma das formas de resolver este problema é usando o "&amp;" ao fim do comando (ainda não resolve para ssh)</p>
+<p>edgard$ <b>sleep 3&amp;</b><br />[1] 16129</p>
+<p>Sera exibido na tela o spid do processo e o console fica imediatamente livre para digitação, e após 3 segundos é impresso na tela a informação de que o processo foi finalizado.</p>
+<p>[1]+&nbsp; Exit 127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ sleep 2</p>
+<p>Outro problema é com o uso do acesso remoto (ssh) que quando fechamos a aplicação ( se for windows o put por exemplo) , processo é finalizado. Para resolver este problema, utilizaremos o aplicativo <b>nohup</b>.<br />Ex.:</p>
+<p><b>nohup sleep 3&amp;</b></p>
+<p>Além de executar o processo em segundo plano, o nohup envia toda a saida (stdout) para o arquivo nohup.out que estará na pasta corrente.</p>
+</div>

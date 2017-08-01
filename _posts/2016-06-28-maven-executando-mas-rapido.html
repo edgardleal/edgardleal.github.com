@@ -1,0 +1,55 @@
+---
+layout: post
+title: Maven - Executando mas rápido
+date: 2016-06-28 13:55:26.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Java
+tags:
+- Java
+- Tools
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _edit_last: '1'
+  _wpas_done_all: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: Maven
+  _yoast_wpseo_focuskw: Maven
+  _yoast_wpseo_linkdex: '90'
+  _yoast_wpseo_primary_category: '18'
+  _publicize_twitter_user: "@EdgardLeal"
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>[caption id="attachment_186" align="alignnone" width="300"]<a href="http://edgardleal.com/wp-content/uploads/2016/06/maven-logo-black-on-white.png"><img class="size-medium wp-image-186" src="{{ site.baseurl }}/assets/maven-logo-black-on-white-300x76.png" alt="Maven" width="300" height="76" /></a> Maven[/caption]</p>
+<p>Por padrão o maven executa todos os teste unitários do projeto sempre que você executa o build ( <strong>package</strong> ) . O problema disto é que algumas vezes apenas precisamos atualizar a aplicação e em alguns dias fazemos isso milhares de vezes.</p>
+<p>O maven nos da algumas opções para dinamizar esta execução.</p>
+<h3>Skiping tests:</h3>
+<p>Ao executar o maven informando o parâmetro "<em>-Dmaven.skip.test=true</em>" indica que o build deve ser executado sem os testes unitários.</p>
+<pre class="lang:sh decode:true">mvn -Dmaven.skip.test=true package</pre>
+<h2>Melhorando o tempo de execução do Maven</h2>
+<p>Seguem abaixo algumas dicas para melhorar o tempo de execução.</p>
+<p>OBS: Algumas destas podem aumentar consideravelmente o uso de CPU.</p>
+<h3>Sem conectar a internet:</h3>
+<p>Temos também a opção de forçar o maven a trabalhar offline com o parâmetro "<em>-o</em>". Por padrão todas as dependências do projeto são salvas localmente como em um serviço de cache, e sendo assim este parâmetro não fará muita diferença.</p>
+<p>Ex.:</p>
+<pre class="lang:sh decode:true">mvn -Dmaven.skip.test=true -o package</pre>
+<p>Para isto é recomendado que antes você execute o seguinte comando para que sejam baixadas todas as dependências e salvas no cache:</p>
+<pre class="lang:sh decode:true">mvn dependency:go-offline</pre>
+<h3>Sem logs:</h3>
+<p>Em algumas situações você pode não querer ver tudo o que o maven esta fazendo. Para isto temos a opção de executa-lo em modo "silencioso" com o parâmetro "-q".</p>
+<p>Ex.:</p>
+<pre class="lang:sh decode:true">mvn -Dmaven.skip.test=true -o -q package</pre>
+<h3>Multi thread:</h3>
+<p>É possível especificar a quantidades de <strong>threads</strong> serão utilizadas no processo de build. Este é um recurso que deve ser utilizado com cautela pois existem muitos fatore que podem influenciar no desempenho do build, como número de núcleos do processador, quantidade de submodulos do projeto e quantidade de tasks a serem executadas dentre outros fatores.</p>
+<pre class="lang:sh decode:true">mvn -Dmaven.skip.test=true -o -q -T 4 package # inicia 4 Threads</pre>
+<pre class="lang:sh decode:true">mvn -Dmaven.skip.test=true -o -q -T 4C package  # inicia 4 threads por núcleo da cpu disponíveis</pre>
+<h3>Fontes:</h3>
+<p><a href="http://maven.apache.org" target="_blank">Site oficial</a></p>

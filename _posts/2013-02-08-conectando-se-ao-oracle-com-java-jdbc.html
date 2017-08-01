@@ -1,0 +1,102 @@
+---
+layout: post
+title: Conectando-se ao Oracle com java JDBC
+date: 2013-02-08 13:00:00.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Dicas
+- Java
+- Oracle
+- SQL
+- Utilidades
+tags:
+- Banco
+- Oracle
+- SQL
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_permalink: "/2013/02/conectando-se-ao-oracle-com-java-jdbc.html"
+  blogger_internal: "/feeds/7525839575016029613/posts/default/3937541557248752271"
+  _thumbnail_id: '94'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Oracle
+  _yoast_wpseo_title: Utilizando JDBC para se conectar ao Oracle com Java
+  _yoast_wpseo_metadesc: Veja como criar e configurar uma conexão com o banco de dados
+    Oracle utilizando o driver JDBC do java
+  _yoast_wpseo_linkdex: '80'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;">
+<p>[caption id="" align="alignnone" width="320"]<a href="http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html" target="_blank"><img title="Oracle logo marca" src="{{ site.baseurl }}/assets/oracle-300x62.jpg" alt="Conectar java ao banco de dados oracle com jdbc connect to oracle with jdbc" width="320" height="65" border="0" /></a> Oracle[/caption]</p>
+</div>
+<div style="clear: both; text-align: center;"></div>
+<p>O JDBC é a sigla de Java Data Base Connector e é uma das maiores vantagens de se utilizar o Java, pela grande facilidade de se conectar a diversos bancos de dados com o mesmo código fonte.</p>
+<p>Para começar a utilizar você deve seguir os seguintes passos:</p>
+<ol>
+<li>Faça o download do driver no site da <b><a href="http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html" target="_blank">Oracle</a></b></li>
+<li>Adicione o driver ao ClassPath da aplicação</li>
+<li>Utilize o código abaixo para criação da conexão com o banco Oracle</li>
+</ol>
+<p>Abaixo você pode ver um exemplo de como inicializar uma nova conexão com o banco de dados. Para se conectar com outros bancos basta mudar a String com o nome da classe do driver e a String com a URL de conexão com o banco.</p>
+<pre class="lang:java decode:true" title="Java Conectando-se ao Oracle">  String driver = "oracle.jdbc.driver.OracleDriver";
+  String stringConnection = "jdbc:oracle:thin:@localhost:1521:Desenvolvimento";
+  try {
+      Class.forName(driver);
+  } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+      return;
+      //para não executar a chamada da conexão
+  }
+  System.out.println("O driver " + driver +  " foi registrado");
+  Connection connection = null;
+  try {
+      connection = DriverManager.getConnection(
+          stringConnection, "4dm1n",
+          "s3cret0");
+      System.out.println("Conectado ao banco !!");
+  } catch (SQLException e) {
+      e.printStackTrace();
+      return;
+  }
+</pre>
+</div>
+<h2>Outras Strings de Conexão( ConnectionString ):</h2>
+<table class="table table-bordered">
+<tbody>
+<tr>
+<th>Banco</th>
+<th>classe do driver</th>
+<th>url de Conexão</th>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>com.mysql.jdbc.Driver</td>
+<td><b>jdbc:mysql://</b>hostname/ databaseName</td>
+</tr>
+<tr>
+<td>ORACLE</td>
+<td>oracle.jdbc.driver.OracleDriver</td>
+<td><b>jdbc:oracle:thin:@</b>hostname:port Number:databaseName</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>COM.ibm.db2.jdbc.net.DB2Driver</td>
+<td><b>jdbc:db2:</b>hostname:port Number/databaseName</td>
+</tr>
+<tr>
+<td>Sybase</td>
+<td>com.sybase.jdbc.SybDriver</td>
+<td><b>jdbc:sybase:Tds:</b>hostname: port Number/databaseName</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,57 @@
+---
+layout: post
+title: Estrutura de um arquivo .java
+date: 
+type: post
+published: false
+status: private
+categories:
+- Java
+tags:
+- Java
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _edit_last: '1'
+  _oembed_cdb476946234c6e8638af39531cee8ae: "{{unknown}}"
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: Java
+  _yoast_wpseo_focuskw: Java
+  _yoast_wpseo_linkdex: '40'
+  _yoast_wpseo_primary_category: '18'
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>Abaixo podemos ver um exemplo de um arquivo Java válido.</p>
+<pre class="lang:java decode:true" title="Classe Java">package com.edgardleal.ocjp;
+
+import java.util.List;
+
+/**
+ * Classe publica do arquivo. Pode ser acessada por outras classes.
+ */
+public class Main {
+    private List instancia;
+    public static List statico;
+
+    public static void main(String[] args) {
+        estatico = null; // Não preciso do nome da classe
+        Main.estatico = null;  
+        System.out.println("Hello World!"); // Display the string.
+    }
+}
+
+// Classe interna do arquivo, e so pode ser visualizada dentro deste arquivo.
+class Interna {
+    String nome;
+}</pre>
+<h3>Linha 1</h3>
+<p>Define o nome do pacote ao qual esta classe/arquivo pertence.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Fontes:</strong></p>
+<p>http://docs.oracle.com/javase/tutorial/getStarted/application/index.html</p>

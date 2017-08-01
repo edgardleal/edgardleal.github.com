@@ -1,0 +1,104 @@
+---
+layout: post
+title: "{:br}R Datasets - chickwts{:}{:en}R Datasets - chickwts{:}"
+date: 2016-01-04 07:15:14.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Dicas
+- R
+- Utilidades
+tags:
+- Estatística
+- R
+- Tips
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _edit_last: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: R Datasets
+  _yoast_wpseo_focuskw: R Datasets
+  _yoast_wpseo_linkdex: '67'
+  _publicize_twitter_user: "@EdgardLeal"
+  _yoast_wpseo_metadesc: Este é um R Dataset resultante de um estudo do ganho de peso
+    de frangos utilizando diferentes tipos de ração. Este pacote é distribuido com
+    o R Studio.
+  _wpas_done_all: '1'
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>{:br}</p>
+<h2>chickwts</h2>
+<p>[caption id="attachment_263" align="alignleft" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2016/01/resultados.png" rel="attachment wp-att-263"><img class="size-thumbnail wp-image-263" src="{{ site.baseurl }}/assets/resultados-150x150.png" alt="R barplot result" width="150" height="150" /></a> R barplot result[/caption]</p>
+<p>Este é um DataFrame resultante de um estudo feito com 50 frangos distribuidos aleatoriamente em seis grupos, e cada um deste seis grupos foram alimentados com seis tipos distintos de suplementos. O objetivo deste estudo é identificar o tipo de alimento que propicia o melhor ganho de peso.</p>
+<p><!--more--></p>
+<h2>R Datasets</h2>
+<p>Este post faz parte de uma serie de posts sobre os principais Datasets disponíveis com a distribuição padrão do R. Estes Datasets são fontes de dados para auxilio nos estudos, provas de conceitos dentre outros.</p>
+<h2>Conteúdo</h2>
+<p>Abaixo pode ser visto uma amostra do conteúdo deste Dataset.</p>
+<pre class="lang:r decode:true" title="Contúdo">&gt; head(chickwts)
+  weight      feed
+1    179 horsebean
+2    160 horsebean
+3    136 horsebean
+4    227 horsebean
+5    217 horsebean
+6    168 horsebean</pre>
+<h2>Uso</h2>
+<p>Verificando o melhor resultado:</p>
+<pre class="lang:r decode:true" title="Verificando os melhores resultados">&gt; aggregate(chickwts$weight, by=list(chickwts$feed), FUN=mean)
+    Group.1        x
+1    casein 323.5833
+2 horsebean 160.2000
+3   linseed 218.7500
+4  meatmeal 276.9091
+5   soybean 246.4286
+6 sunflower 328.9167</pre>
+<p>Exibindo os resultados em um gráfico de barras:</p>
+<pre class="lang:r decode:true " title="Exibindo o gráfico dos resultados">result  barplot(result$x, names.arg = result$Group.1)</pre>
+<p>[caption id="attachment_263" align="alignleft" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2016/01/resultados.png" rel="attachment wp-att-263"><img class="wp-image-263 size-thumbnail" src="{{ site.baseurl }}/assets/resultados-150x150.png" alt="R barplot result R Dataset" width="150" height="150" /></a> R barplot result[/caption]</p>
+<h2></h2>
+<h2>Referências:</h2>
+<p><a href="http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/chickwts.html" target="_blank">http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/chickwts.html</a>{:}{:en}</p>
+<h2>chickwts</h2>
+<p>[caption id="attachment_263" align="alignleft" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2016/01/resultados.png" rel="attachment wp-att-263"><img class="size-thumbnail wp-image-263" src="{{ site.baseurl }}/assets/resultados-150x150.png" alt="R barplot result" width="150" height="150" /></a> R barplot result[/caption]</p>
+<p><span id="result_box" class="" lang="en"><span title="R Dataset ChickenEste é um DataFrame resultante de um estudo feito com 50 frangos distribuidos aleatoriamente em seis grupos, e cada um deste seis grupos foram alimentados com seis tipos distintos de suplementos.">R Dataset ChickenEste DataFrame is a result of a study done on 50 chickens randomized into six groups, and each of the six groups were fed with six different types of supplements. </span><span title="O objetivo deste estudo é identificar o tipo de alimento que propicia o melhor ganho de peso. ">The objective of this study is to identify the type of food that provides the best weight gain.</span></span></p>
+<p><!--more--></p>
+<h2>R Datasets</h2>
+<p><span id="result_box" class="" lang="en"><span title="Este post faz parte de uma serie de posts sobre os principais Datasets disponíveis com a distribuição padrão do R. Estes Datasets são fontes de dados para auxilio nos estudos, provas de conceitos dentre outros. ">This post is part of a series of posts on the main Datasets available with the standard distribution of R. These Datasets are data sources to aid in studies, proof of concept and others.</span><br />
+</span></p>
+<h2>Content</h2>
+<p><span id="result_box" class="" lang="en"><span title="Abaixo pode ser visto uma amostra do conteúdo deste Dataset. ">Below can be seen a sample of the contents of this Dataset</span></span>.</p>
+<pre class="lang:r decode:true" title="Contúdo">&gt; head(chickwts)
+  weight      feed
+1    179 horsebean
+2    160 horsebean
+3    136 horsebean
+4    227 horsebean
+5    217 horsebean
+6    168 horsebean</pre>
+<h2>Usage</h2>
+<p><span id="result_box" class="" lang="en"><span title="Verificando o melhor resultado: ">Checking the best result:</span></span></p>
+<pre class="lang:r decode:true" title="Verificando os melhores resultados">&gt; aggregate(chickwts$weight, by=list(chickwts$feed), FUN=mean)
+    Group.1        x
+1    casein 323.5833
+2 horsebean 160.2000
+3   linseed 218.7500
+4  meatmeal 276.9091
+5   soybean 246.4286
+6 sunflower 328.9167</pre>
+<p><span id="result_box" class="" lang="en"><span title="Exibindo os resultados em um gráfico de barras: ">Displaying the results on a bar graph:</span></span></p>
+<pre class="lang:r decode:true " title="Exibindo o gráfico dos resultados">result  barplot(result$x, names.arg = result$Group.1)</pre>
+<p>[caption id="attachment_263" align="alignleft" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/sites/3/2016/01/resultados.png" rel="attachment wp-att-263"><img class="wp-image-263 size-thumbnail" src="{{ site.baseurl }}/assets/resultados-150x150.png" alt="R barplot result R Dataset" width="150" height="150" /></a> R barplot result[/caption]</p>
+<h2></h2>
+<h2>References</h2>
+<p><a href="http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/chickwts.html" target="_blank">http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/chickwts.html</a>{:}</p>

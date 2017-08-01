@@ -1,0 +1,52 @@
+---
+layout: post
+title: Vim programatico
+date: 2016-06-13 14:32:40.000000000 -03:00
+type: post
+published: true
+status: publish
+categories:
+- Utilidades
+tags:
+- Produtivity
+- vim
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _wpcom_is_markdown: '1'
+  _edit_last: '1'
+  _wpas_done_all: '1'
+  cta_content_placement: below
+  _yoast_wpseo_focuskw_text_input: vim
+  _yoast_wpseo_focuskw: vim
+  _yoast_wpseo_linkdex: '4'
+  _publicize_twitter_user: "@EdgardLeal"
+  _wpas_skip_12598308: '1'
+  _wpas_skip_12598293: '1'
+  _wpas_skip_12598334: '1'
+author:
+  login: edgardleal
+  email: edgardleal@gmail.com
+  display_name: edgardleal
+  first_name: Edgard
+  last_name: Leal
+---
+<p>[caption id="attachment_114" align="aligncenter" width="150"]<a href="http://blog.edgardleal.com/wp-content/uploads/2015/09/Vimlogo.png"><img class="wp-image-114 size-thumbnail" title="Logo Vim" src="{{ site.baseurl }}/assets/Vimlogo-150x150.png" alt="Vim logo" width="150" height="150" /></a> vim[/caption]</p>
+<p>É possível utilizar o Vim de forma programática para realizar grandes tarefas de forma automatizada. Uma situação onde este recurso pode ser muito útil é na conversão do charset/encoding de arquivos sem perder os caracteres originais.</p>
+<pre class="lang:sh decode:true ">vim -S setcharset.vim finded.txt</pre>
+<p>-S = indica o arquivo contendo o script</p>
+<h2>Exemplo de script:</h2>
+<pre class="lang:vim decode:true" title="Modificar o charset de um arquivo">set encoding=utf-8
+set fileencoding-utf-8
+wq</pre>
+<ol>
+<li>Define o encoding do buffer atual</li>
+<li>Define o encoding do arquivo atual</li>
+<li>Salva e fecha o arquivo</li>
+</ol>
+<p>Um exemplo de utilização deste recurso seria modificar o charset de todos os arquivos .java de uma pasta:</p>
+<pre class="lang:sh decode:true" title="Modificar o charset de todos os arquivos">find ./ -name '*.java' -exec vim -S script.vim {} \;</pre>
+<p>O comando acima quando utilizado tendo na mesma pasta um arquivo de nome <em>script.vim</em> com o conteúdo de script mostrado acima, localiza dos os arquivos com a extensão .java contidos na pasta atual,  e para cada arquivo encontrado ele abre o arquivo utilizando o script previamente criado, que faz com que o Vim modifique o charset/encoding, salve e fecha o arquivo em seguida dando continuidade a busca.</p>
+<p><strong>Algums links úteis caso queira se aprofundar no assunto:</strong></p>
+<p><a href="http://www.ibm.com/developerworks/library/l-vim-script-1/index.html" target="_blank">Tutorial para criação de scripts do Vim</a></p>
+<p><a href="http://www.vim.org/scripts/index.php" target="_blank">Exemplos de scripts</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Vim_(text_editor)#Vim_script" target="_blank">Mais sobre o Vim na Wikipedia</a></p>

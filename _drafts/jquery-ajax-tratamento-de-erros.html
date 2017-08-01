@@ -1,0 +1,187 @@
+---
+layout: post
+title: JQuery Ajax Tratamento de erros
+date: 
+type: post
+published: false
+status: draft
+categories:
+- Dicas
+- JQuery
+- Utilidades
+tags: []
+meta:
+  blogger_blog: www.edgardleal.com
+  blogger_author: edgard leal
+  blogger_internal: "/feeds/7525839575016029613/posts/default/1609636941115367990"
+  _thumbnail_id: '43'
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  cta_content_placement: below
+  _publicize_twitter_user: "@EdgardLeal"
+  _wpcom_is_markdown: '1'
+author:
+  login: edgard leal
+  email: ''
+  display_name: edgard leal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align: left;">
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://edgardleal.com/wp-content/uploads/sites/3/2015/08/12028_funny_loading.jpg"><img title="Loading image" src="{{ site.baseurl }}/assets/12028_funny_loading.jpg" alt="Loading image" width="200" height="150" border="0" /> </a></div>
+<div style="clear: both; text-align: left;">Se o seu objetivo é deixar seus usuários furiosos,  é simples, basta não tratar os erros de requisições Ajax, e deixar sua animação de "loading" "rodando" por toda a eternidade.  Além de irritar, isto faz com que o usuário não saiba mais quando a aplicação esta realmente carregando ou quando ocorreu um erro. No melhor dos mundos, criaria-se um tratamento de erro e quando o servidor não respondesse ou como na maioria dos casos, quando o 3g do cliente não for suficiente, a aplicação informa que houve um problema e que em N segundos irá tentar novamente, como é feito nos aplicativos do Google.</div>
+<div style="clear: both; text-align: center;"></div>
+<p>A biblioteca JQuery dispoe de algums métodos para realizar requisições assíncronas  <b>$.get, $.post, $.ajax</b>:</p>
+<pre class="lang:js decode:true">function get_data(){
+$.ajax({
+  url: "test.html",
+  context: document.body,
+  success: function(){
+    alert('Operação realizada com sucesso!');
+  },
+  fail: function() {
+     show_error('O servidor nao esta respondendo...');
+     setTimeout(get_data, 3000);
+  } 
+});
+}</pre>
+<p>The <b>jQuery ajax error function</b> hook is part of the callback function queues. When the callback is invoked it receives the <a title="jQuery ajax jqXHR object" href="http://api.jquery.com/jQuery.ajax/#jqXHR">jqXHR</a>, a string indicating the error type, and an exception object if applicable. There are several built in error strings provided by the exception option they include “<b>abort</b>“, “<b>timeout</b>“, “<b>No Transport</b>“, “<b>parser error</b>“. We also have access to server errors that are returned. In this implementation we want to catch the following.</p>
+<ol>
+<li>HTTP Status Code <b>404 Error</b> – ajax file not found error</li>
+<li>HTTP Status Code <b>500 Error</b> – ajax internal system error</li>
+<li><b>AJAX JSON Parse</b> Errors</li>
+<li><b>jQuery AJAX Timeout</b> Errors</li>
+<li><b>jQuery AJAX Abort</b> Errors</li>
+<li>Browser/Connectivity Errors</li>
+<li><b>AJAX no transport error</b></li>
+<li>Other Unknown Errors</li>
+</ol>
+<h3>jQuery .ajaxSetup() Function</h3>
+<p>It is possible to set default values for all jQuery AJAX requests using the <a title="jQuery ajaxSetup function" href="http://api.jquery.com/jQuery.ajaxSetup/">JQuery .ajaxSetup()</a>function. The function is used to set default key/value pairs for all future AJAX requests. Looks like this:</p>
+<div>
+<div>
+<table border="0" cellspacing="0" cellpadding="0">
+<caption>jQuery ajaxSetup Function</caption>
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+</td>
+<td>
+<div>
+<div><code>$.ajaxSetup({</code></div>
+<div><code>     </code><code>key: </code><code>'value'</code></div>
+<div><code>});</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h3>jQuery Ajax Error Function</h3>
+<p>Let’s start building the function the will return the Ajax error. It will be a series of if else statements to text the chain of possible errors. We’ll test in a specific order and set an alert for each of the caught errors. We’ll also set the new function to the default error handling function with <b>$.ajaxSetup()</b>.</p>
+<div>
+<div style="width: 165px;">Share the love!</div>
+</div>
+<div>
+<div>
+<table border="0" cellspacing="0" cellpadding="0">
+<caption>jQuery Ajax Error Handling Function</caption>
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div>
+<div>16</div>
+<div>17</div>
+<div>18</div>
+<div>19</div>
+<div>20</div>
+<div>21</div>
+</td>
+<td>
+<div>
+<div><code>$(</code><code>function</code><code>() {</code></div>
+<div><code>    </code><code>$.ajaxSetup({</code></div>
+<div><code>        </code><code>error: </code><code>function</code><code>(jqXHR, exception) {</code></div>
+<div><code>            </code><code>if</code> <code>(jqXHR.status === 0) {</code></div>
+<div><code>                </code><code>alert(</code><code>'Not connect.n Verify Network.'</code><code>);</code></div>
+<div><code>            </code><code>} </code><code>else</code> <code>if</code> <code>(jqXHR.status == 404) {</code></div>
+<div><code>                </code><code>alert(</code><code>'Requested page not found. [404]'</code><code>);</code></div>
+<div><code>            </code><code>} </code><code>else</code> <code>if</code> <code>(jqXHR.status == 500) {</code></div>
+<div><code>                </code><code>alert(</code><code>'Internal Server Error [500].'</code><code>);</code></div>
+<div><code>            </code><code>} </code><code>else</code> <code>if</code> <code>(exception === </code><code>'parsererror'</code><code>) {</code></div>
+<div><code>                </code><code>alert(</code><code>'Requested JSON parse failed.'</code><code>);</code></div>
+<div><code>            </code><code>} </code><code>else</code> <code>if</code> <code>(exception === </code><code>'timeout'</code><code>) {</code></div>
+<div><code>                </code><code>alert(</code><code>'Time out error.'</code><code>);</code></div>
+<div><code>            </code><code>} </code><code>else</code> <code>if</code> <code>(exception === </code><code>'abort'</code><code>) {</code></div>
+<div><code>                </code><code>alert(</code><code>'Ajax request aborted.'</code><code>);</code></div>
+<div><code>            </code><code>} </code><code>else</code> <code>{</code></div>
+<div><code>                </code><code>alert(</code><code>'Uncaught Error.n'</code> <code>+ jqXHR.responseText);</code></div>
+<div><code>            </code><code>}</code></div>
+<div><code>        </code><code>}</code></div>
+<div><code>    </code><code>});</code></div>
+<div><code>});</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Once the default error handling action is set, you can leverage it by calling the existing jQuery ajax functions.</p>
+<h3>Ajax Error handling Examples:</h3>
+<table border="0" cellspacing="0" cellpadding="0">
+<caption>jQuery .ajax, .get, .post Example</caption>
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+</td>
+<td>
+<div>
+<div><code>// jQuery AJAX Error Handler</code></div>
+<div><code>$.ajax({</code></div>
+<div><code>  </code><code>url: </code><code>"test.php"</code></div>
+<div><code>});</code></div>
+<div></div>
+<div><code>or</code></div>
+<div><code>// jQuery AJAX Get Error Handler</code></div>
+<div><code>$.get(</code><code>"test.php"</code><code>);</code></div>
+<div></div>
+<div><code>or</code></div>
+<div><code>// jQuery AJAX post Error Handler</code></div>
+<div><code>$.post(</code><code>"test.php"</code><code>);</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
