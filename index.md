@@ -1,11 +1,6 @@
 ---
-layout: page
-title: Edgard Leal
-tagline: /Java(Script)?/ developer
+layout: default
 ---
-{% include JB/setup %}
-
-## Posts
 
 <ul class="posts">
   {% for post in site.posts %}
